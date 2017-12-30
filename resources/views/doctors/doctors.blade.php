@@ -38,7 +38,8 @@
                                             <td>{{ date('M j, Y', strtotime($doctor->created_at)) }}</td>
                                             <td>
                                                 <a class="btn btn-xs btn-warning" href="" role="button">edit</a>
-                                                <a class="btn btn-xs btn-primary" href="{{ route('doctors.show', ['id',$doctor->id]) }}" role="button">view</a>
+                                                <a class="btn btn-xs btn-primary"
+                                                   href="{{ route('doctors.show', ['id',$doctor->id]) }}" role="button">view</a>
                                                 <a class="btn btn-xs btn-danger" href="" role="button">del</a>
                                             </td>
                                         </tr>

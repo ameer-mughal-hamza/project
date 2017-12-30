@@ -2,8 +2,7 @@
 @section('style-sheet')
 @section('style-sheet')
     <link rel="stylesheet" type="text/css" href="{{ URL::to('chosen_v1.4.0/chosen.min.css') }}">
-    <link rel="stylesheet" type="text/css"
-          href="{{ URL::to('font-awesome-4.3.0/css/summernote.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::to('font-awesome-4.3.0/css/summernote.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('summernote-master/dist/summernote.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/default.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/new-article.css') }}">
@@ -24,13 +23,20 @@
                     </header>
                     <div class="content-inner">
                         <div class="form-wrapper">
-                            <form action="{{route('doctors.store')}}" method="POST" enctype="multipart/form-data">
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-6" style="margin-bottom: 15px;">
+                                        <img src="/doctor-images/{{ $doctor->image_url }}" id="profile-img-tag"
+                                             style="width:150px; height:150px; float:left; border-radius:50%; margin-right:25px; margin-bottom: 15px;"/>
+                                        <input type="file" name="file" id="profile-img"/>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="sr-only">First Name</label>
                                             <input type="text" class="form-control" name="first_name" id="first_name"
-                                                   placeholder="First Name">
+                                                   placeholder="First Name" value="{{ $doctor->first_name }}">
                                         </div>
                                     </div>
 
@@ -38,45 +44,17 @@
                                         <div class="form-group">
                                             <label class="sr-only">Last Name</label>
                                             <input type="text" class="form-control" name="last_name" id="last_name"
-                                                   placeholder="Last Name">
+                                                   placeholder="Last Name" value="{{ $doctor->last_name }}">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="sr-only">Email</label>
                                             <input type="text" class="form-control" name="email" id="email"
-                                                   placeholder="Email">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="sr-only">Password</label>
-                                            <input type="text" class="form-control" name="password" id="password"
-                                                   placeholder="Password (default:user1234)">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="sr-only">Gender</label>
-                                            <select class="form-control" name="gender">
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="sr-only">Password</label>
-                                            <input type="text" class="form-control" name="fee"
-                                                   placeholder="Enter fee here">
+                                                   placeholder="Email" value="{{ $doctor->email }}">
                                         </div>
                                     </div>
                                 </div>
@@ -84,10 +62,8 @@
                                 <div class="form-group">
                                     <label class="sr-only">Category</label>
                                     <select data-placeholder="Select categories" multiple name="categories[]"
+                                            value="{{$doctor->category}}"
                                             class=" form-control chosen-select" multiple="multiple">
-                                        @foreach($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
                                     </select>
                                 </div>
 
@@ -95,7 +71,7 @@
                                     <label class="sr-only">Degree</label>
                                     <select data-placeholder="Select degrees" multiple name="degrees[]"
                                             class=" form-control chosen-select" multiple="multiple">
-                                        @foreach($degrees as $degree)
+                                        @foreach($degree as $degree)
                                             <option value="{{ $degree->id }}">{{ $degree->name }}</option>
                                         @endforeach
                                     </select>
@@ -104,25 +80,18 @@
                                 <div class="form-group">
                                     <label class="sr-only">Description</label>
                                     <textarea class="form-control" name="description" rows="5"
-                                              placeholder="Enter description here"></textarea>
+                                              placeholder="Enter description here">{{ $doctor->description }}</textarea>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="sr-only">PMDC_verified</label>
-                                    <input type="checkbox" value="0" name="pmdc_verified"> PMDC Verified
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="upload-image">Upload Image</label>
-                                    {{--<input type="file" name="upload-image"/>--}}
-                                    <input type="file" name="upload-image" id="profile-img"/>
-                                    <img src="" id="profile-img-tag"
-                                         style="width:150px; height:150px; float:left; border-radius:50%; margin-right:25px;"/>
+                                    <input type="checkbox" value="{{ $doctor->pmdc_verified }}" name="pmdc_verified">
+                                    PMDC Verified
                                 </div>
 
                                 <div class="clearfix">
                                     {{ csrf_field() }}
-                                    <input type="submit" class="btn btn-primary pull-right" value="Save">
+                                    <input type="submit" class="btn btn-primary pull-right" value="Save"/>
                                 </div>
 
                             </form>
@@ -131,7 +100,7 @@
                 </div>
                 <div class="row">
                     <footer id="admin-footer" class="clearfix">
-                        <div class="pull-left"><b>Copyright </b>&copy; 2015</div>
+                        <div class="pull-left"><b>Copyright </b>&copy; 2017</div>
                         <div class="pull-right">admin system</div>
                     </footer>
                 </div>
@@ -162,6 +131,8 @@
             height: 200
         })
     </script>
+
+    {{--Previewing image in a image view before uploading the photo on server--}}
     <script type="text/javascript">
         function readURL(input) {
             if (input.files && input.files[0]) {

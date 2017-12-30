@@ -25,44 +25,49 @@ Route::get('/index/post/{id}', [
 
 /***************************************************************************************/
 
-Route::group(['middleware'=>'auth:admin'], function (){
+Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::resource('doctors', 'DoctorController');
-    Route::get('doctors/delete/{id}',[
-       'uses' => 'DoctorController@destroy',
-       'as' => 'doctors.destroy'
+    Route::get('doctors/delete/{id}', [
+        'uses' => 'DoctorController@destroy',
+        'as' => 'doctors.destroy'
     ]);
     Route::get('doctors/all/view', [
         'uses' => 'DoctorController@getAllDoctors',
         'as' => 'doctors.all'
     ]);
+    Route::get('doctors/edit/{id}', [
+        'uses' => 'DoctorController@edit',
+        'as' => 'doctors.edit'
+    ]);
 
-    Route::resource('degrees','DegreeController');
-    Route::get('degrees/delete/{id}',[
+
+    Route::resource('degrees', 'DegreeController');
+    Route::get('degrees/delete/{id}', [
         'uses' => 'DegreeController@destroy',
         'as' => 'degrees.destroy'
     ]);
 
 
     Route::resource('tags', 'TagController');
-    Route::get('tags/delete/{id}',[
+    Route::get('tags/delete/{id}', [
         'uses' => 'TagController@destroy',
         'as' => 'tags.destroy'
     ]);
-    Route::post('tags/{id}',[
+    Route::post('tags/{id}', [
         'uses' => 'TagController@update',
         'as' => 'tags.update'
     ]);
 
     Route::resource('categories', 'CategoryController');
-    Route::get('categories/delete/{id}',[
+    Route::get('categories/delete/{id}', [
         'uses' => 'CategoryController@destroy',
         'as' => 'categories.destroy'
     ]);
 
     Route::get('blog', [
-       'uses' => 'PostController@getPostForAdminBlog',
-       'as' => 'admin.blog'
+        'uses' => 'PostController@getPostForAdminBlog',
+        'as' => 'admin.blog'
     ]);
 
     Route::get('blog/posts', [
@@ -98,10 +103,10 @@ Route::group(['middleware'=>'auth:admin'], function (){
 
 Auth::routes();
 
-Route::group(['prefix'=>'admin'],function (){
-    Route::get('/login','Auth\AdminLoginController@showAdminLoginForm')->name('admin.login');
-    Route::post('/login','Auth\AdminLoginController@adminLogin')->name('admin.login.submit');
-    Route::get('/','AdminController@index')->name('admin.dashboard');
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/login', 'Auth\AdminLoginController@showAdminLoginForm')->name('admin.login');
+    Route::post('/login', 'Auth\AdminLoginController@adminLogin')->name('admin.login.submit');
+    Route::get('/', 'AdminController@index')->name('admin.dashboard');
 });
 
 

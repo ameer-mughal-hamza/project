@@ -10,29 +10,21 @@ use Illuminate\Http\Request;
 
 class DoctorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
+    //Get all users from database and show on index page
     public function index()
     {
         $doctors = Doctor::orderBy('first_name', 'asc')->take(5)->get();
         return view('doctors.index', ['doctors' => $doctors]);
     }
 
+    //Get all doctors
     public function getAllDoctors()
     {
         $doctors = Doctor::orderBy('first_name', 'asc')->get();
         return view('doctors.doctors', ['doctors' => $doctors]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //Show create page
     public function create()
     {
         $categories = Category::all();
@@ -40,12 +32,7 @@ class DoctorController extends Controller
         return view('doctors.create', ['categories' => $categories, 'degrees' => $degrees]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+    //Store a user in database
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -77,47 +64,31 @@ class DoctorController extends Controller
         return redirect()->route('doctors.index')->with('info', 'New Doctor Created!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Doctor $doctor
-     * @return \Illuminate\Http\Response
-     */
+    //Show a specific doctor
     public function show($id)
     {
+//        dd('Ameer amzoj;cvshd');
         $doctor = Doctor::find($id);
-        return view('doctors.show')->withDoctor($doctor);
+        return view('doctors.show', ['doctor' => $doctor]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Doctor $doctor
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Doctor $doctor)
+    //Give data to edit form
+    public function edit($id)
     {
-        //
+        $doctor = Doctor::find($id);
+        $degree = Degree::all();
+        $category = Category::all();
+        return view('doctors.edit', ['doctor' => $doctor, 'doctorId' => $id, 'degree' => $degree, 'categories' => $category]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Doctor $doctor
-     * @return \Illuminate\Http\Response
-     */
+    //Update a particular a user
     public function update(Request $request, Doctor $doctor)
     {
-        //
+        //TODO: Update a user
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Doctor $doctor
-     * @return \Illuminate\Http\Response
-     */
+
+    //Delete a particular user
     public function destroy($id)
     {
         $doctor = Doctor::find($id);

@@ -8,8 +8,8 @@
     <div class="container-fluid display-table">
         <div class="row display-table-row">
             <!-- side menu -->
-            @include('admin.admin-partials.admin-navbar')
-            <!-- main content area -->
+        @include('admin.admin-partials.admin-navbar')
+        <!-- main content area -->
             <div class="col-md-10 col-sm-11 display-table-cell valign-top">
                 @include('admin.admin-partials.admin-header')
                 <div class="row">
