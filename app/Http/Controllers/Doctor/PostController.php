@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Doctor;
+
+use App\Http\Controllers\Controller;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,26 +11,28 @@ use Image;
 
 class PostController extends Controller
 {
-    public function getPostForAdminBlog(){
-        $posts = Post::orderBy('title', 'asc')->take(5)->get();
-        return view('admin.blog', ['posts' => $posts]);
+    public function getPostForDoctorBlog()
+    {
+        $posts = POST::where('doctor_id', Auth::user()->id)->orderBy('title', 'asc')->take(5)->get();
+        return view('doctors.blog', ['posts' => $posts]);
     }
+
     public function getPosts()
     {
-        $posts = POST::orderBy('title', 'asc')->get();
-        return view('blog.index', ['posts' => $posts]);
+        $posts = POST::where('doctor_id', Auth::user()->id)->orderBy('title', 'asc')->get();
+        return view('doctors.blog.index', ['posts' => $posts]);
     }
 
     public function getPostCreate()
     {
         $tags = Tag::all();
-        return view('blog.create',['tags' => $tags]);
+        return view('doctors.blog.create', ['tags' => $tags]);
     }
 
     public function getPostEdit($id)
     {
         $post = Post::find($id);
-        return view('blog.edit')->withPost($post);
+        return view('doctors.blog.edit')->withPost($post);
     }
 
 
@@ -43,7 +47,7 @@ class PostController extends Controller
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->save();
-        return redirect()->route('blog.posts')->with('info', 'Post edited, new Title is: ' . $request->input('title'));
+        return redirect()->route('doctor.blog.posts')->with('info', 'Post edited, new Title is: ' . $request->input('title'));
     }
 
     public function postCreate(Request $request)
@@ -53,6 +57,7 @@ class PostController extends Controller
             'content' => 'required'
         ]);
 
+        $doctor = Auth::user();
         $post = new Post;
 
         $post->title = $request->input('title');
@@ -61,13 +66,13 @@ class PostController extends Controller
         if ($request->hasFile('upload-image')) {
             $image = $request->file('upload-image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
-            $location = public_path('upload-images/'.$filename);
+            $location = public_path('upload-images/' . $filename);
             Image::make($image)->resize(800, 400)->save($location);
             $post->image_url = $filename;
         }
-        $post->save();
+        $doctor->posts()->save($post);
         $post->tags()->attach($request->input('tags') === null ? [] : $request->input('tags'));
-        return redirect()->route('admin.blog');
+        return redirect()->route('doctor.blog');
     }
 
     public function delete($id)
@@ -79,6 +84,6 @@ class PostController extends Controller
         }
         $post->tags()->detach();
         $post->delete();
-        return redirect()->route('blog.posts')->with('info', 'Post deleted!');
+        return redirect()->route('doctor.blog.posts')->with('info', 'Post deleted!');
     }
 }

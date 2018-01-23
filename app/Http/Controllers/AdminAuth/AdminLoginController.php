@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\AdminAuth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,19 +17,18 @@ class AdminLoginController extends Controller
     {
         return view('admin.admin-login-form');
     }
+
     public function adminLogin(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'username' => 'required|email',
             'password' => 'required|min:6'
         ]);
         if (Auth::guard('admin')->attempt([
             'username' => $request->username,
-            'password' => $request->password]))
-        {
+            'password' => $request->password])) {
             return redirect()->intended(route('admin.dashboard'));
         }
-        return redirect()->back()->with('fail','Authentication failed!');
+        return redirect()->back()->with('fail', 'Authentication failed!');
     }
-
 }

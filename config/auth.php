@@ -44,7 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
-
+        'doctor' => [
+            'driver' => 'session',
+            'provider' => 'doctors'
+        ],
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -77,7 +80,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Admin::class,
         ],
-
+        'doctors' => [
+            'driver' => 'eloquent',
+            'model' => App\Doctor::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -107,6 +113,11 @@ return [
         ],
         'admins' => [
             'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 15,
+        ],
+        'doctors' => [
+            'provider' => 'doctors',
             'table' => 'password_resets',
             'expire' => 15,
         ],

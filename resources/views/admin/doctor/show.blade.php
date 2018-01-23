@@ -19,7 +19,8 @@
                                 <header class="clearfix">
                                     <h5 class="pull-left">Doctors</h5>
                                 </header>
-                                <img src="/doctor-images/" . {{ $doctor->image_url }} height="150" width="150"
+                                <img src="{{ URL::asset("/doctor-images/" .  $doctor->image_url) }}" height="150"
+                                     width="150"
                                      class="dr-img">
                                 <div class="col-md-10 clearfix doc-profile">
                                     <h4 class="doc-profile-name">
@@ -32,16 +33,11 @@
                                         <h5 class="doc-complete-edu">{{ $degree->name }}</h5>
                                     @endforeach
                                     <br>
-                                    {{--<h6>{{ $doctor->category }}</h6>--}}
-                                    {{--@if ({{$doctor->pmdc_verified->contains($doctor->pmdc_verified)}})--}}
-                                    {{--<h5 class="verified">PMDC Verified</h5>--}}
-                                    {{--@endif--}}
                                     @if(!$doctor->pmdc_verified)
                                         <h5 class="verified">PMDC Verified</h5>
                                     @else
                                         <h5 class="verified">Not Verified</h5>
                                     @endif
-                                    {{--{{ $doctor->contains($doctor->pmdc_verified) ? '<h5 class="verified">PMDC Verified</h5>' : '' }}--}}
                                 </div>
                                 <hr>
                             </div>

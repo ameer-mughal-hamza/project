@@ -1,27 +1,44 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Category;
 use App\Doctor;
 use App\Degree;
 use Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DoctorController extends Controller
 {
+
+    public function __construct()
+    {
+//        the statement below specify that i want to use
+//        doctor auth not default authentication
+//        if i use auth only it will use the default web guard
+        $this->middleware('auth:admin');
+    }
+
     //Get all users from database and show on index page
     public function index()
     {
         $doctors = Doctor::orderBy('first_name', 'asc')->take(5)->get();
-        return view('doctors.index', ['doctors' => $doctors]);
+        return view('admin.doctor.index', ['doctors' => $doctors]);
     }
 
     //Get all doctors
     public function getAllDoctors()
     {
         $doctors = Doctor::orderBy('first_name', 'asc')->get();
-        return view('doctors.doctors', ['doctors' => $doctors]);
+        return view('admin.doctor.doctors', ['doctors' => $doctors]);
+    }
+
+    public function showAllDoctors()
+    {
+        $doctors = Doctor::orderBy('first_name', 'asc')->get();
+        return view('admin.doctor.show-all', ['doctors' => $doctors]);
     }
 
     //Show create page
@@ -29,23 +46,27 @@ class DoctorController extends Controller
     {
         $categories = Category::all();
         $degrees = Degree::all();
-        return view('doctors.create', ['categories' => $categories, 'degrees' => $degrees]);
+        return view('admin.doctor.create', ['categories' => $categories, 'degrees' => $degrees]);
     }
 
     //Store a user in database
     public function store(Request $request)
     {
+//        dd($request->all());
         $this->validate($request, [
             'first_name' => 'required|max:25',
             'last_name' => 'required|max:25',
+            'password' => 'required|min:8',
             'email' => 'required|email',
         ]);
+
         $doctor = new Doctor;
 
         $doctor->first_name = $request->input('first_name');
         $doctor->last_name = $request->input('last_name');
         $doctor->gender = $request->input('gender');
         $doctor->email = $request->input('email');
+        $doctor->password = Hash::make($request->password);
         $doctor->description = $request->input('description');
         $doctor->fee = $request->input('fee');
         $doctor->pmdc_verified = $request->input('pmdc_verified');
@@ -67,9 +88,8 @@ class DoctorController extends Controller
     //Show a specific doctor
     public function show($id)
     {
-//        dd('Ameer amzoj;cvshd');
         $doctor = Doctor::find($id);
-        return view('doctors.show', ['doctor' => $doctor]);
+        return view('admin.doctor.show', ['doctor' => $doctor]);
     }
 
     //Give data to edit form
@@ -78,7 +98,7 @@ class DoctorController extends Controller
         $doctor = Doctor::find($id);
         $degree = Degree::all();
         $category = Category::all();
-        return view('doctors.edit', ['doctor' => $doctor, 'doctorId' => $id, 'degree' => $degree, 'categories' => $category]);
+        return view('admin.doctor.edit', ['doctor' => $doctor, 'doctorId' => $id, 'degree' => $degree, 'categories' => $category]);
     }
 
     //Update a particular a user

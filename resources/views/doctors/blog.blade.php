@@ -7,43 +7,42 @@
 
     <div class="container-fluid display-table">
         <div class="row display-table-row">
-            <!-- side menu -->
-        @include('admin.admin-partials.admin-navbar')
+        @include('doctors.doctor-partials.doctor-navbar')
         <!-- main content area -->
             <div class="col-md-10 col-sm-11 display-table-cell valign-top">
-                @include('admin.admin-partials.admin-header')
+                @include('doctors.doctor-partials.doctor-header')
                 <div id="dashboard-con">
                     <div class="row">
                         <div class="col-md-12 dashboard-left-cell">
                             <div class="admin-content-con">
                                 <header class="clearfix">
-                                    <h5 class="pull-left">Doctors</h5>
-                                    <a class="btn btn-xs btn-primary pull-right" href="{{ route('doctors.create') }}"
-                                       role="button">Create Doctor</a>
+                                    <h5 class="pull-left">Articles</h5>
+                                    <a class="btn btn-xs btn-primary pull-right" href="{{ route('doctor.blog.create') }}"
+                                       role="button">Create new
+                                        article</a>
                                 </header>
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
+                                        <th>Title</th>
+                                        <th>Body</th>
                                         <th>Created</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach( $doctors as $doctor)
+                                    @foreach( $posts as $post)
                                         <tr>
-                                            <td>{{ $doctor->first_name . ' ' . $doctor->last_name }}</td>
-                                            <td>{{ $doctor->email }}</td>
-                                            <td>{{ date('M j, Y', strtotime($doctor->created_at)) }}</td>
+                                            <td>{{ $post->title }}</td>
+                                            <td>{!! substr($post->content,0 , 50) !!}{{ strlen($post->content) > 50 ? "...":"" }}</td>
+                                            <td>{{ date('M j, Y', strtotime($post->created_at)) }}</td>
                                             <td>
                                                 <a class="btn btn-xs btn-warning"
-                                                   href="{{ route('doctors.edit',$doctor->id) }}"
-                                                   role="button">edit</a>
+                                                   href="{{ route('doctor.blog.edit',['id' => $post->id]) }}" role="button">edit</a>
                                                 <a class="btn btn-xs btn-primary"
-                                                   href="{{ route('doctors.show',$doctor->id) }}" role="button">view</a>
+                                                   href="{{ route('post',['id' => $post->id]) }}" role="button">view</a>
                                                 <a class="btn btn-xs btn-danger"
-                                                   href="{{ route('doctors.destroy', $doctor->id) }}"
+                                                   href="{{ route('blog.post.delete',['id' => $post->id]) }}"
                                                    role="button">del</a>
                                             </td>
                                         </tr>
@@ -51,8 +50,8 @@
                                     </tbody>
                                 </table>
                                 <div class="clearfix">
-                                    <a href="{{ route('doctors.all') }}" class="pull-right text-link">view all
-                                        doctors</a>
+                                    <a href="{{ route('doctor.blog.posts',['id' => Auth::user()->id]) }}" class="pull-right text-link">view all
+                                        articles</a>
                                 </div>
                             </div>
                         </div>

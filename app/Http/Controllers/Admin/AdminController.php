@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Admin;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,7 @@ class AdminController extends Controller
         //if i use auth only it will use the default web guard
         $this->middleware('auth:admin');
     }
+
     public function index()
     {
         return view('admin.admin-home');

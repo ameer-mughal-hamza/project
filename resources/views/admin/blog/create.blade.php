@@ -1,31 +1,3 @@
-{{--@extends('layouts.master')--}}
-{{--@section('content')--}}
-{{--<div class="container" style="padding-top: 100px;">--}}
-{{--@include('partials.errors')--}}
-{{--<div class="row">--}}
-{{--<div class="col-md-12">--}}
-{{--<form action="{{route('blog.post.create')}}" method="post" enctype="multipart/form-data">--}}
-{{--<div class="form-group">--}}
-{{--<label for="title">Title</label>--}}
-{{--<input type="text" class="form-control" id="title" name="title" placeholder="Enter title here">--}}
-{{--</div>--}}
-{{--<div class="form-group">--}}
-{{--<label for="content">Content</label>--}}
-{{--<textarea id="content" name="content" rows="6" cols="140"></textarea>--}}
-{{--</div>--}}
-{{--<div class="form-group">--}}
-{{--<label for="upload-image">Upload Image</label>--}}
-{{--<input type="file" name="upload-image" />--}}
-{{--<!-- <textarea></textarea> -->--}}
-{{--</div>--}}
-{{--{{ csrf_field() }}--}}
-{{--<button type="submit" class="btn btn-default">Submit</button>--}}
-{{--</form>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--@endsection--}}
-
 @extends('admin.admin-layouts.admin-master')
 
 @section('style-sheet')

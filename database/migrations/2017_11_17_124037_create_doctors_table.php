@@ -23,7 +23,7 @@ class CreateDoctorsTable extends Migration
             $table->integer('fee')->unsigned();
             $table->string('image_url')->nullable();
             $table->boolean('pmdc_verified')->default(0);
-            $table->string('password')->default('user1234');
+            $table->string('password');
             $table->timestamps();
         });
     }

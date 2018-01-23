@@ -1,37 +1,8 @@
-{{--@extends('layouts.master')--}}
-{{--@section('content')--}}
-{{--<div class="container" style="padding-top: 100px;">--}}
-{{--@include('partials.errors')--}}
-{{--<div class="row">--}}
-{{--<div class="col-md-12">--}}
-{{--<form action="{{route('blog.post.create')}}" method="post" enctype="multipart/form-data">--}}
-{{--<div class="form-group">--}}
-{{--<label for="title">Title</label>--}}
-{{--<input type="text" class="form-control" id="title" name="title" placeholder="Enter title here">--}}
-{{--</div>--}}
-{{--<div class="form-group">--}}
-{{--<label for="content">Content</label>--}}
-{{--<textarea id="content" name="content" rows="6" cols="140"></textarea>--}}
-{{--</div>--}}
-{{--<div class="form-group">--}}
-{{--<label for="upload-image">Upload Image</label>--}}
-{{--<input type="file" name="upload-image" />--}}
-{{--<!-- <textarea></textarea> -->--}}
-{{--</div>--}}
-{{--{{ csrf_field() }}--}}
-{{--<button type="submit" class="btn btn-default">Submit</button>--}}
-{{--</form>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--@endsection--}}
-
-@extends('admin.admin-layouts.admin-master')
+@extends('doctors.doctor-layouts.doctor-master')
 
 @section('style-sheet')
     <link rel="stylesheet" type="text/css" href="{{ URL::to('chosen_v1.4.0/chosen.min.css') }}">
-    <link rel="stylesheet" type="text/css"
-          href="{{ URL::to('font-awesome-4.3.0/css/summernote.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::to('font-awesome-4.3.0/css/summernote.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('summernote-master/dist/summernote.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/default.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/new-article.css') }}">
@@ -41,18 +12,10 @@
     <div class="container-fluid display-table">
         <div class="row display-table-row">
             <!-- side menu -->
-        @if(Auth::guard('admin')->check())
-            @include('admin.admin-partials.admin-navbar')
-        @else
-            @include('doctors.doctor-partials.doctor-navbar')
-        @endif
+        @include('doctors.doctor-partials.doctor-navbar')
         <!-- main content area -->
             <div class="col-md-10 col-sm-11 display-table-cell valign-top">
-                @if(Auth::guard('admin')->check())
-                    @include('admin.admin-partials.admin-header')
-                @else
-                    @include('doctors.doctor-partials.doctor-header')
-                @endif
+                @include('doctors.doctor-partials.doctor-header')
                 <div id="content">
                     <header>
                         <h2 class="page_title">Create new article</h2>
@@ -60,7 +23,7 @@
 
                     <div class="content-inner">
                         <div class="form-wrapper">
-                            <form action="{{route('blog.post.create')}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{route('doctor.blog.post.create')}}" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label class="sr-only">Title</label>
                                     <input type="text" class="form-control" name="title" id="title" placeholder="Title">
