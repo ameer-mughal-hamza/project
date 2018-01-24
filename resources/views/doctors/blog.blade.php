@@ -17,7 +17,8 @@
                             <div class="admin-content-con">
                                 <header class="clearfix">
                                     <h5 class="pull-left">Articles</h5>
-                                    <a class="btn btn-xs btn-primary pull-right" href="{{ route('doctor.blog.create') }}"
+                                    <a class="btn btn-xs btn-primary pull-right"
+                                       href="{{ route('doctor.blog.create') }}"
                                        role="button">Create new
                                         article</a>
                                 </header>
@@ -38,11 +39,12 @@
                                             <td>{{ date('M j, Y', strtotime($post->created_at)) }}</td>
                                             <td>
                                                 <a class="btn btn-xs btn-warning"
-                                                   href="{{ route('doctor.blog.edit',['id' => $post->id]) }}" role="button">edit</a>
+                                                   href="{{ route('doctor.blog.edit',['id' => $post->id]) }}"
+                                                   role="button">edit</a>
                                                 <a class="btn btn-xs btn-primary"
                                                    href="{{ route('post',['id' => $post->id]) }}" role="button">view</a>
                                                 <a class="btn btn-xs btn-danger"
-                                                   href="{{ route('blog.post.delete',['id' => $post->id]) }}"
+                                                   href="{{ route('doctor.blog.post.delete',['id' => $post->id]) }}"
                                                    role="button">del</a>
                                             </td>
                                         </tr>
@@ -50,7 +52,8 @@
                                     </tbody>
                                 </table>
                                 <div class="clearfix">
-                                    <a href="{{ route('doctor.blog.posts',['id' => Auth::user()->id]) }}" class="pull-right text-link">view all
+                                    <a href="{{ route('doctor.blog.posts',['id' => Auth::user()->id]) }}"
+                                       class="pull-right text-link">view all
                                         articles</a>
                                 </div>
                             </div>

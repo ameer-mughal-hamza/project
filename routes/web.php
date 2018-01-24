@@ -145,6 +145,14 @@ Route::group(['middleware' => 'auth:doctor'], function () {
         'uses' => 'Doctor\PostController@delete',
         'as' => 'doctor.blog.post.delete'
     ]);
+
+    Route::get('doctor/medicine/prescription', [
+        'uses' => 'Doctor\MedicineController@getMedicineView',
+        'as' => 'doctor.medicine.prescription'
+    ]);
+
+    Route::get('search', 'Doctor\MedicineController@search');
+
 });
 
 

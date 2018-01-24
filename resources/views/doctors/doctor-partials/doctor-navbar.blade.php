@@ -37,7 +37,7 @@
                 </li>
 
                 <li>
-                    <a href="">Perscription
+                    <a href="{{ route('doctor.medicine.prescription') }}">Perscription
                         <span class="label label-warning pull-right hidden-xs hidden-sm">10</span>
                     </a>
                 </li>
