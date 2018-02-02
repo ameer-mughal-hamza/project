@@ -151,7 +151,32 @@ Route::group(['middleware' => 'auth:doctor'], function () {
         'as' => 'doctor.medicine.prescription'
     ]);
 
-    Route::get('search', 'Doctor\MedicineController@search');
+    Route::get('search', 'Doctor\MedicineNameController@search');
+
+    Route::post('add_patient', [
+        'uses' => 'Doctor\PatientController@add_patient',
+        'as' => 'add_patient'
+    ]);
+
+    Route::post('insert_prescription', [
+        'uses' => 'Doctor\MedicineController@insert_prescription',
+        'as' => 'insert_prescription'
+    ]);
+
+    Route::get('prescribe_medicine_to_existing_patient/{id}', [
+        'uses' => 'Doctor\MedicineController@prescribeMedicineToExistingPatient',
+        'as' => 'prescribe_medicine_to_existing_patient'
+    ]);
+
+    Route::get('show_patient_detail/{id}', [
+        'uses' => 'Doctor\PatientController@show_patient_detail',
+        'as' => 'show_patient_detail'
+    ]);
+
+    Route::get('view_report/{id}', [
+        'uses' => 'Doctor\MedicineController@view_report',
+        'as' => 'view_report'
+    ]);
 
 });
 

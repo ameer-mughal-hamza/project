@@ -32,8 +32,10 @@ class RedirectIfAuthenticated
                 }
                 break;
             default:
-                if (Auth::guard($guard)->check()){
-                    return redirect('/home');
+                if (Auth::guard($guard)->check() == 'admin') {
+                    return redirect('/admin/login');
+                } else if(Auth::guard($guard)->check() == 'doctor') {
+                    return redirect('/doctor/login');
                 }
                 break;
         }

@@ -20,16 +20,15 @@
                                     <h5 class="pull-left">Patient Information</h5>
                                 </header>
                                 <div class="content">
-                                    <form action="{{ route('add_patient') }}" id="save_patient" method="POST">
-                                        {{ csrf_field() }}
+                                    <form>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Name</label>
                                                     <input type="text" id="patient_name" class="form-control input-sm"
-                                                           required
+                                                           disabled
                                                            placeholder="Name"
-                                                           value="">
+                                                           value="{{ $patient->patient_name }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -38,19 +37,12 @@
                                                 <div class="form-group">
                                                     <label>Mobile No.</label>
                                                     <input type="text" id="patient_mobile" class="form-control input-sm"
-                                                           required
-                                                           placeholder="Mobile Number" value="">
+                                                           disabled
+                                                           placeholder="Mobile Number"
+                                                           value="{{ $patient->patient_mobile }}">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <input type="submit"
-                                                       class="btn btn-primary pull-left btn-sm" value="Save">
-                                            </div>
-                                        </div>
-                                        <input type="text" class="hidden" id="doctor_id"
-                                               value="{{ Auth::guard('doctor')->user()->id }}">
                                     </form>
                                 </div>
                             </div>
@@ -89,7 +81,8 @@
                                                    class="form-control input-sm" required
                                                    placeholder="Temprature"
                                                    value=""></td>
-                                        <input type="text" id="patient_id" class="hidden">
+                                        <input type="text" id="patient_id" class="hidden" value="{{ $patient->id }}">
+                                        <input type="text" id="doctor_id" class="hidden" value="{{ Auth::user()->id }}">
                                     </tr>
                                     </tbody>
                                     <thead>
@@ -154,78 +147,11 @@
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="{{URL::to('custom-js/add-row.js') }}"></script>
-
-    <script>
-        $(function () {
-            if (sessionStorage.getItem("patient_id") === null) {
-                $("#medicine_prescription").hide();
-            }
-            else {
-                $("#medicine_prescription").show();
-                $("#save_patient :input").prop("disabled", true);
-                $("#patient_id").val(sessionStorage.getItem("patient_id"));
-            }
-        });
-
-    </script>
-
-    {{--This is used to prompt a alert box to make sure user wants to leave the page or not--}}
-    {{--<script>--}}
-    {{--window.onbeforeunload = function () {--}}
-    {{--return "Data will be lost if you leave the page, are you sure?";--}}
-    {{--};--}}
-    {{--</script>--}}
     <script>
         $(function () {
             $("#medicine_name").autocomplete({
                 source: 'http://localhost:8000/search'
             });
-        });
-    </script>
-    <script type="text/javascript">
-        $('#save_patient').on('submit', function (e) {
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            var patient_id;
-            var name = $('#patient_name').val();
-            var mobile = $('#patient_mobile').val();
-            var doctor_id = $('#doctor_id').val();
-
-            e.preventDefault(e);
-
-            $.ajax({
-                type: 'POST',
-                url: '/add_patient',
-                dataType: 'JSON',
-                data: {
-                    name: name,
-                    mobile: mobile,
-                    doctor_id: doctor_id
-                },
-                success: function (data) {
-                    if (data.id === "") {
-                        alert('Record is not saved');
-                    } else {
-                        console.log(data);
-                        sessionStorage.setItem("patient_id", data['id']); // Get id of currently saved patient
-                        $("#medicine_prescription").show();
-                        $("#patient_id").val(data['id']); // Get id of currently Added user
-                        disablePatientInformationForm();  // Disable User Information form
-                    }
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                }
-            });
-
-            function disablePatientInformationForm() {
-                $("#save_patient :input").prop("disabled", true);
-            }
         });
     </script>
     <script type="text/javascript">
@@ -272,7 +198,6 @@
                     doctor_id: doctor_id
                 },
                 success: function (msg) {
-                    sessionStorage.clear();
                     window.location = 'http://localhost:8000/doctor';
                 },
                 failure: function (msg) {
