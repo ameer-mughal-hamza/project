@@ -27,10 +27,14 @@
                                         <textarea class="form-control" rows="3" name="name"
                                                   placeholder="Enter category name here"></textarea>
                                     </p>
+                                    <p>
+                                        <textarea class="form-control" rows="3" name="description"
+                                                  placeholder="Enter description here"></textarea>
+                                    </p>
                                     {{ csrf_field() }}
                                     <p>
                                         <input type="submit" class="btn btn-large btn-block btn-primary"
-                                               value="Save Tags">
+                                               value="Save Category">
                                     </p>
                                 </div>
                             </form>
@@ -54,7 +58,9 @@
                                 <tbody>
                                 @foreach($categories as $category)
                                     <tr>
-                                        <td><a href="{{ route('categories.show', $category->id) }}">{{ $category->name }}</a></td>
+                                        <td>
+                                            <a href="{{ route('categories.show', $category->id) }}">{{ $category->name }}</a>
+                                        </td>
                                         <td>{{ date('M j, Y', strtotime($category->created_at)) }}</td>
                                         <td>
                                             <a href="{{ route('categories.destroy',['id' => $category->id]) }}"

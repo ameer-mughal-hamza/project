@@ -22,7 +22,7 @@
                                 @foreach($doctors as $doctor)
                                     <img src="{{ URL::asset("/doctor-images/" .  $doctor->image_url) }}" height="150"
                                          width="150"
-                                         class="dr-img">
+                                         class="dr-img" style="border-radius: 50%">
                                     <div class="col-md-10 clearfix doc-profile">
                                         <h4 class="doc-profile-name">
                                             Dr. {{ $doctor->first_name .' '.$doctor->last_name }}</h4>

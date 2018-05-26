@@ -20,10 +20,14 @@ class CreateDoctorsTable extends Migration
             $table->string('gender');
             $table->string('email');
             $table->longText('description');
+            $table->longText('category');
+            $table->longText('education');
             $table->integer('fee')->unsigned();
-            $table->string('image_url')->nullable();
+            $table->string('image_url')->default('default.jpg');
             $table->boolean('pmdc_verified')->default(0);
             $table->string('password');
+            $table->string('available_timings')->default(0);
+            $table->boolean('deleted_flag')->default(0);
             $table->timestamps();
         });
     }

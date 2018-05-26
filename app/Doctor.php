@@ -19,6 +19,7 @@ class Doctor extends Authenticatable
         'image_url',
         'pmdc_verified',
         'password',
+        'deleted_flag'
     ];
 
     public function categories()

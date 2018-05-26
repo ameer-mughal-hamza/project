@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->text('content');
             $table->string('image_url')->nullable();
             $table->Integer('doctor_id');
+            $table->boolean('deleted_flag')->default(0);
             $table->timestamps();
         });
     }

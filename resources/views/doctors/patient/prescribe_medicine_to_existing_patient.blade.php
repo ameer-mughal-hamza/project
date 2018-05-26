@@ -55,6 +55,8 @@
                                     <h5>Prescription</h5>
                                 </header>
                                 <table id="medicine_prescription" class="table table-striped">
+                                    <textarea name="history" id="history" cols="30" rows="10" class="form-control"
+                                              placeholder="Enter Patient History"></textarea>
                                     <thead>
                                     <tr>
                                         <th>Age</th>
@@ -175,6 +177,7 @@
                 return $(this).val();
             }).get().join("||||");
 
+            var history = $("#history").val();
             var age = $("#age").val();
             var weight = $("#weight").val();
             var bloodpressure = $("#bloodpressure").val();
@@ -190,6 +193,7 @@
                     medicine_type: medicine_type,
                     medicine_name: medicine_name,
                     medicine_quantity: medicine_quantity,
+                    history: history,
                     age: age,
                     weight: weight,
                     temprature: temprature,
@@ -198,7 +202,7 @@
                     doctor_id: doctor_id
                 },
                 success: function (msg) {
-                    window.location = 'http://localhost:8000/doctor';
+                    window.location = 'http://localhost:8000/doctor/show-patient/' + patient_id;
                 },
                 failure: function (msg) {
                     console.log(msg);

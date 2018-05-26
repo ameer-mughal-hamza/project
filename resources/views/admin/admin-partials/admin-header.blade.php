@@ -10,7 +10,8 @@
                     <span class="icon-bar"></span>
                 </button>
             </nav>
-            <input type="text" class="hidden-sm hidden-xs" id="header-search-field" placeholder="Search for something...">
+            <input type="text" class="hidden-sm hidden-xs" id="header-search-field"
+                   placeholder="Search for something...">
         </div>
 
         <div class="col-md-7">
@@ -30,7 +31,8 @@
                     </a>
                 </li>
                 <li class="logout">
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="{{ route('logout') }}"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST"

@@ -23,6 +23,16 @@ Route::get('/index/post/{id}', [
     'as' => 'post'
 ]);
 
+Route::get('/doctor/view/{id}', [
+    'uses' => 'IndexController@getDoctor',
+    'as' => 'view-doctor-on-main-web'
+]);
+
+Route::get('/service/{category}', [
+    'uses' => 'IndexController@getService',
+    'as' => 'service-page'
+]);
+
 /*-----------------------------Blog Routes----------------------------------*/
 Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('blog', [
@@ -108,9 +118,102 @@ Route::group(['middleware' => 'auth:admin'], function () {
         'as' => 'degrees.destroy'
     ]);
 
+    Route::get('medicine', [
+        'uses' => 'Admin\MedicineNameController@show',
+        'as' => 'medicine.show'
+    ]);
+
+    Route::post('medicine/store', [
+        'uses' => 'Admin\MedicineNameController@store_medicine',
+        'as' => 'medicine.store'
+    ]);
+
+    Route::post('medicine/delete', [
+        'uses' => 'Admin\MedicineNameController@delete',
+        'as' => 'medicine.delete'
+    ]);
+
+    Route::get('admin_view_report/{id}', [
+        'uses' => 'Admin\MedicineController@view_report',
+        'as' => 'admin.view_report'
+    ]);
+
+    Route::get('show-patient/{id}', [
+        'uses' => 'Admin\PatientController@show_patient',
+        'as' => 'admin.patient.show' //Show details of single patient
+    ]);
+
+    Route::get('all-patient', [
+        'uses' => 'Admin\PatientController@show_all_patients',
+        'as' => 'admin.show.all.patients' //Show details of single patient
+    ]);
+
+    Route::post('admin/medicine/delete', [
+        'uses' => 'Admin\MedicineController@destroy',
+        'as' => 'admin.medicine.destroy'
+    ]);
+
 });
 
+
+Route::group(['middleware' => 'auth:patient'], function () {
+
+    Route::get('show-patients-details/{id}', [
+        'uses' => 'Patient\PatientController@showPatientDetail',
+        'as' => 'show.patient.detail'
+    ]);
+    Route::get('patient_view_report/{id}', [
+        'uses' => 'Patient\PatientController@view_report',
+        'as' => 'patient.view_report'
+    ]);
+
+    Route::get('appointment/{id}', [
+        'uses' => 'Patient\PatientController@appointment',
+        'as' => 'appointment'
+    ]);
+    Route::post('appointment', [
+        'uses' => 'Patient\PatientController@saveAppointment',
+        'as' => 'appointment.store'
+    ]);
+
+    Route::post('getAppointmentTimes', [
+        'uses' => 'Patient\PatientController@getAppointmentTime',
+        'as' => 'get.appointment.time'
+    ]);
+
+    Route::get('show/patient/doctor', [
+        'uses' => 'Patient\PatientController@showAllDoctors',
+        'as' => 'show.patient.doctor'
+    ]);
+
+    Route::get('show/patient/doctor/info/{id}', [
+        'uses' => 'Patient\PatientController@showDoctorInfoPage',
+        'as' => 'show.patient.doctor.info'
+    ]);
+
+
+    Route::get('show-booked-appointment', [
+        'uses' => 'Patient\PatientController@showBookedPpointment',
+        'as' => 'show.booked.appointment'
+    ]);
+    Route::get('view/doctor/patient/{id}', [
+        'uses' => 'Patient\PatientController@showDoctor',
+        'as' => 'show.doctor'
+    ]);
+});
+
+
 Route::group(['middleware' => 'auth:doctor'], function () {
+    Route::get('appointment/settings/{id}', [
+        'uses' => 'Doctor\DoctorController@showSettingPage',
+        'as' => 'doctor.appointment.setting'
+    ]);
+
+    Route::post('appointment_store', [
+        'uses' => 'Doctor\DoctorController@storeTimings',
+        'as' => 'doctor.appointment.timings'
+    ]);
+
     Route::get('doctor/blog', [
         'uses' => 'Doctor\PostController@getPostForDoctorBlog',
         'as' => 'doctor.blog'
@@ -168,16 +271,46 @@ Route::group(['middleware' => 'auth:doctor'], function () {
         'as' => 'prescribe_medicine_to_existing_patient'
     ]);
 
-    Route::get('show_patient_detail/{id}', [
+    Route::get('doctor/show-all-patients', [
+        'uses' => 'Doctor\PatientController@show_all_patients',
+        'as' => 'doctor.show.all.patients'
+    ]);
+
+    Route::get('doctor/show-patient/{id}', [
         'uses' => 'Doctor\PatientController@show_patient_detail',
-        'as' => 'show_patient_detail'
+        'as' => 'doctor.patient.show' //Show details of single patient
     ]);
 
-    Route::get('view_report/{id}', [
-        'uses' => 'Doctor\MedicineController@view_report',
-        'as' => 'view_report'
+    Route::post('doctor/medicine/delete', [
+        'uses' => 'Doctor\MedicineController@delete',
+        'as' => 'doctor.medicine.delete'
     ]);
 
+
+    Route::post('patient/destroy', [
+        'uses' => 'Doctor\PatientController@destroy',
+        'as' => 'patient.destroy'
+    ]);
+
+    Route::post('history', [
+        'uses' => 'Doctor\PatientController@history',
+        'as' => 'patient.history'
+    ]);
+
+    Route::get('doctor_view_report/{id}', [
+        'uses' => 'Admin\MedicineController@view_report',
+        'as' => 'doctor.view_report'
+    ]);
+
+    Route::post('update-doctor', [
+        'uses' => 'Doctor\DoctorController@update_doctor',
+        'as' => 'doctor.update'
+    ]);
+
+    Route::get('doctor/profile/{id}', [
+        'uses' => 'Doctor\DoctorController@profile',
+        'as' => 'doctor.profile'
+    ]);
 });
 
 
@@ -193,4 +326,22 @@ Route::group(['prefix' => 'doctor'], function () {
     Route::get('/login', 'DoctorAuth\DoctorLoginController@showDoctorLoginForm')->name('doctor.login');
     Route::post('/login', 'DoctorAuth\DoctorLoginController@doctorLogin')->name('doctor.login.submit');
     Route::get('/', 'Doctor\DoctorController@doctordashboard')->name('doctor.dashboard');
+});
+
+Route::group(['prefix' => 'patient'], function () {
+    Route::get('/login', 'PatientAuth\PatientLoginController@showPatientLoginForm')->name('patient.login');
+    Route::post('/login', 'PatientAuth\PatientLoginController@patientLogin')->name('patient.login.submit');
+    Route::get('/', 'Patient\PatientController@patientdashboard')->name('patient.dashboard');
+});
+
+Route::group(['prefix' => 'pharmacist'], function () {
+    Route::get('/login', 'PharmacistAuth\PharmacistLoginController@showPharmacistLoginForm')->name('pharmacist.login');
+    Route::post('/login', 'PharmacistAuth\PharmacistLoginController@pharmacistLogin')->name('pharmacist.login.submit');
+    Route::get('/', 'Pharmacist\PharmacistController@pharmacistdashboard')->name('pharmacist.dashboard');
+});
+
+Route::group(['prefix' => 'labortarian'], function () {
+    Route::get('/login', 'LabortarianAuth\LabortarianLoginController@showLabortarianLoginForm')->name('labortarian.login');
+    Route::post('/login', 'LabortarianAuth\LabortarianLoginController@labortarianLogin')->name('labortarian.login.submit');
+    Route::get('/', 'Labortarian\LabortarianController@labortariandashboard')->name('labortarian.dashboard');
 });

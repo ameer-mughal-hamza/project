@@ -19,25 +19,26 @@
                                 <header class="clearfix">
                                     <h5 class="pull-left">Doctors</h5>
                                 </header>
-                                <img src="{{ URL::asset("/doctor-images/" .  $doctor->image_url) }}" height="150"
-                                     width="150"
-                                     class="dr-img">
-                                <div class="col-md-10 clearfix doc-profile">
-                                    <h4 class="doc-profile-name">
-                                        Dr. {{ $doctor->first_name .' '.$doctor->last_name }}</h4>
-                                    @foreach($doctor->categories as $category)
-                                        <h5 class="doc-sepecializaton">{{ $category->name }}</h5>
-                                    @endforeach
-                                    <br>
-                                    @foreach($doctor->degrees as $degree)
-                                        <h5 class="doc-complete-edu">{{ $degree->name }}</h5>
-                                    @endforeach
-                                    <br>
-                                    @if(!$doctor->pmdc_verified)
-                                        <h5 class="verified">PMDC Verified</h5>
-                                    @else
-                                        <h5 class="verified">Not Verified</h5>
-                                    @endif
+                                <div class="single-blog-area">
+                                    <div class="row" style="margin-bottom: 30px;">
+                                        <div class="col-md-8">
+                                            <div class="col-md-4">
+                                                <div style="border-radius: 50%;">
+                                                    <img src="{{ URL::to('main-web-img/blog-bg.jpg') }}"
+                                                         style=" height:200px; width: 200px; border-radius: 50%;">
+                                                </div>
+                                            </div>
+                                            <div class="doctor-professional-profile col-md-8">
+                                                <h4 class="doc-profile-name">Dr. {{ $doctor->first_name }}</h4>
+                                                <h5 class="doc-complete-edu">{{ $doctor->education }}</h5>
+                                                <h6 class="doc-specialization">{{ $doctor->category }}</h6>
+                                                @if($doctor->pmdc_verified == 0)
+                                                    <h5 class="verified">
+                                                        <i class="fa fa-check-square-o"></i> PMDC Verified</h5>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <hr>
                             </div>

@@ -16,7 +16,15 @@
 
         <div class="col-md-7">
             <ul class="pull-right">
-                <li id="welcome" class="hidden-xs">Welcome {{ Auth::guard('doctor')->user()->first_name }}</li>
+                <li class="fixed-width logo-name">
+                    <img src="{{ URL::asset("/doctor-images/" .  Auth::user()->image_url) }}"
+                         alt="{{ URL::asset("/doctor-images/default.jpg") }}"
+                         style="width: 32px; height: 32px; border-radius: 50%">
+                </li>
+
+                <li id="welcome" class="hidden-xs"><a href="{{ route('doctor.profile',['id'=>Auth::user()->id]) }}">Welcome {{ Auth::guard('doctor')->user()->first_name }}</a>
+                </li>
+
                 <li class="fixed-width">
                     <a href="#">
                         <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>

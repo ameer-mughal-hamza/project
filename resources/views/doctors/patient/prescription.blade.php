@@ -24,10 +24,22 @@
                                         {{ csrf_field() }}
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="form-group">
+                                                <div class="form-group {{ $errors->has('patient_email') ? 'has-error' : '' }}">
+                                                    <label>Email</label>
+                                                    <input type="text" id="patient_email" class="form-control input-sm"
+                                                           placeholder="Email"
+                                                           value="">
+                                                    @if($errors->has('patient_email'))
+                                                        <span class="help-block">{{ $errors->first('patient_email') }}</span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group {{ $errors->has('patient_name') ? 'has-error' : ''}}">
                                                     <label>Name</label>
                                                     <input type="text" id="patient_name" class="form-control input-sm"
-                                                           required
                                                            placeholder="Name"
                                                            value="">
                                                 </div>
@@ -35,10 +47,9 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="form-group">
+                                                <div class="form-group {{ $errors->has('patient_mobile') ? 'has-error' : '' }}">
                                                     <label>Mobile No.</label>
                                                     <input type="text" id="patient_mobile" class="form-control input-sm"
-                                                           required
                                                            placeholder="Mobile Number" value="">
                                                 </div>
                                             </div>
@@ -58,11 +69,17 @@
 
                         {{--Medicine prescription goes gere--}}
                         <div class="col-md-8">
-                            <div class="admin-content-con clearfix">
-                                <header>
-                                    <h5>Prescription</h5>
+                            <div class="admin-content-con clearfix" id="prescription">
+                                <header class="clearfix">
+                                    <h5 style="float: left;">Prescription</h5>
+                                    {{--<button class="btn btn-danger btn-sm" id="reset-form">Reset</button>--}}
+                                    <i class="fa fa-repeat pull-right" id="reset-form" role="button"></i>
+                                    {{--<img src="/images/reset-icon.png" alt="" height="22px"--}}
+                                    {{--width="22px" class="pull-right" id="reset-form">--}}
                                 </header>
                                 <table id="medicine_prescription" class="table table-striped">
+                                    <textarea name="history" id="history" cols="30" rows="10" class="form-control"
+                                              placeholder="Enter Patient History"></textarea>
                                     <thead>
                                     <tr>
                                         <th>Age</th>
@@ -158,23 +175,29 @@
     <script>
         $(function () {
             if (sessionStorage.getItem("patient_id") === null) {
-                $("#medicine_prescription").hide();
+                $("#prescription").hide();
             }
             else {
-                $("#medicine_prescription").show();
+                $("#prescription").show();
                 $("#save_patient :input").prop("disabled", true);
                 $("#patient_id").val(sessionStorage.getItem("patient_id"));
+                $("#patient_name").val(sessionStorage.getItem("patient_name"));
+                $("#patient_mobile").val(sessionStorage.getItem("patient_mobile"));
             }
         });
-
     </script>
 
-    {{--This is used to prompt a alert box to make sure user wants to leave the page or not--}}
-    {{--<script>--}}
-    {{--window.onbeforeunload = function () {--}}
-    {{--return "Data will be lost if you leave the page, are you sure?";--}}
-    {{--};--}}
-    {{--</script>--}}
+    {{--reset form--}}
+
+    <script type="text/javascript">
+        $('#reset-form').click(function () {
+            sessionStorage.clear();
+            window.location = 'http://localhost:8000/doctor/medicine/prescription';
+        });
+    </script>
+
+    {{--Medicine Name and Lab Test Name Autocomplete--}}
+
     <script>
         $(function () {
             $("#medicine_name").autocomplete({
@@ -182,6 +205,9 @@
             });
         });
     </script>
+
+
+    {{--Save Patient Information--}}
     <script type="text/javascript">
         $('#save_patient').on('submit', function (e) {
 
@@ -192,9 +218,11 @@
             });
 
             var patient_id;
+            var email = $('#patient_email').val();
             var name = $('#patient_name').val();
             var mobile = $('#patient_mobile').val();
             var doctor_id = $('#doctor_id').val();
+
 
             e.preventDefault(e);
 
@@ -203,6 +231,7 @@
                 url: '/add_patient',
                 dataType: 'JSON',
                 data: {
+                    email: email,
                     name: name,
                     mobile: mobile,
                     doctor_id: doctor_id
@@ -213,7 +242,7 @@
                     } else {
                         console.log(data);
                         sessionStorage.setItem("patient_id", data['id']); // Get id of currently saved patient
-                        $("#medicine_prescription").show();
+                        $("#prescription").show();
                         $("#patient_id").val(data['id']); // Get id of currently Added user
                         disablePatientInformationForm();  // Disable User Information form
                     }
@@ -228,6 +257,8 @@
             }
         });
     </script>
+
+    {{--Insert Medicine Prescription in database--}}
     <script type="text/javascript">
         $('#insert').click(function () {
 
@@ -249,6 +280,7 @@
                 return $(this).val();
             }).get().join("||||");
 
+            var history = $("#history").val();
             var age = $("#age").val();
             var weight = $("#weight").val();
             var bloodpressure = $("#bloodpressure").val();
@@ -264,6 +296,7 @@
                     medicine_type: medicine_type,
                     medicine_name: medicine_name,
                     medicine_quantity: medicine_quantity,
+                    history: history,
                     age: age,
                     weight: weight,
                     temprature: temprature,

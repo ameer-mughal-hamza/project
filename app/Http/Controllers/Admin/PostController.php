@@ -1,19 +1,23 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Post;
+
 use Image;
 
 class PostController extends Controller
 {
-    public function getPostForAdminBlog(){
+    public function getPostForAdminBlog()
+    {
         $posts = Post::orderBy('title', 'asc')->take(5)->get();
         return view('admin.blog', ['posts' => $posts]);
     }
+
     public function getPosts()
     {
         $posts = POST::orderBy('title', 'asc')->get();
@@ -23,7 +27,7 @@ class PostController extends Controller
     public function getPostCreate()
     {
         $tags = Tag::all();
-        return view('blog.create',['tags' => $tags]);
+        return view('blog.create', ['tags' => $tags]);
     }
 
     public function getPostEdit($id)
@@ -37,6 +41,7 @@ class PostController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|min:5',
+
             'content' => 'required'
         ]);
 
@@ -62,7 +67,7 @@ class PostController extends Controller
         if ($request->hasFile('upload-image')) {
             $image = $request->file('upload-image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
-            $location = public_path('upload-images/'.$filename);
+            $location = public_path('upload-images/' . $filename);
             Image::make($image)->resize(800, 400)->save($location);
             $post->image_url = $filename;
         }

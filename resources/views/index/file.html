@@ -1,0 +1,80 @@
+<style>
+    .ui-autocomplete-loading {
+        background: white url("<?php echo bloginfo('url'); ?>/jquery/images/ui-anim_basic_16x16.gif") right center no-repeat;
+    }
+    .mainsearch{
+        margin-top: -414px;
+    }
+
+
+</style>
+<div id="advance-search">
+    <div class="container">
+        <div class="row">
+            <div class="span3 mainsearch">
+                <div class="nav nav-tabs">
+                    <h3 style="color:#fff; text-align:left;border-bottom: 1px solid;padding-bottom: 16px;">Search Cheap
+                        Flights Worldwide</h3>
+
+                    <form class="contact-form row" method='post' enctype="multipart/form-data">
+                        <?php echo @$errors; ?>
+                        <div class="span3 mainsearchb1">
+                            <label>Flying from?</label>
+                            <input type="text" id="from" name="from" placeholder="Any Airport"
+                                   value="<?php echo @$_POST['from']; ?>"
+                                   style="border:none; font-size:13px; width:99%; margin:0px; background:none; outline:none;background-color:#fff;padding: 9px;"/>
+                        </div>
+                        <div class="span3 mainsearchb1">
+                            <label>Where to?</label>
+                            <input type="text" id="to" name="to" class="fromstyle" placeholder="Any Destination"
+                                   value="<?php echo @$_POST['to']; ?>"
+                                   style="border:none; font-size:13px; width:99%; margin:0px; background-color:#fff;padding: 9px;"/>
+                        </div>
+                        <!--          <div class="span3" style="width:0px; overflow:hidden;" >
+                                    <select name="class" class="fromstyle" value="" style="border: 1px solid #ccc;border-radius: 0px;padding:5px;height:36px; width:100%; margin:0px">
+                                      <option value="Y/Y">Economy</option>
+                                      <option value="J/J">Business</option>
+                                      <option value="F/F">First</option>
+                                    </select>
+                                  </div>
+                                  <div class="span3"  style="width:0px; overflow:hidden;">
+                                    <select  name="fare_type" class="fromstyle" value="" style="border: 1px solid #ccc;border-radius: 0px;padding: 7px;height: 36px;width:100%;margin: 0px 0px 0px 8px;">
+                                      <option value="Return">Return</option>
+                                      <option value="Oneway">Oneway</option>
+                                    </select>
+                                  </div>
+                        -->
+                        <div class="span3 mainsearchb1">
+                            <label>When?</label>
+                            <input type="text" name="from_date" id="from_date" class="fromstyle"
+                                   placeholder="Departure Date" value="<?php echo @$_POST['from_date']; ?>"
+                                   style="border:none; font-size:13px;  width:99%; margin:0px;background-color:#fff;padding: 9px;"/>
+                        </div>
+                        <div class="span3 mainsearchb1">
+                            <label>For how long?</label>
+                            <input type="text" name="to_date" id="to_date" class="fromstyle" placeholder="Return Date"
+                                   value="<?php echo @$_POST['to_date']; ?>"
+                                   style="border:none; font-size:13px;  width:99%; margin:0px;background-color:#fff;padding: 9px;"/>
+                        </div>
+                        <div class="span3 mainsearchb1">
+                            <label>Phone number?</label>
+                            <input type="text" name="phone" class="fromstyle" placeholder="Phone"
+                                   value="<?php echo @$_POST['phone']; ?>"
+                                   style="border:none; font-size:13px; width:99%; margin:0px;background-color:#fff;padding: 9px;"/>
+                        </div>
+                        <div class="span3 mainsearchb1">
+                            <label>Email address?</label>
+                            <input type="text" name="email" class="fromstyle" placeholder="Email"
+                                   value="<?php echo @$_POST['email']; ?>"
+                                   style="border:none; font-size:13px; width:99%; margin:0px;background-color:#fff;padding: 9px;"/>
+                        </div>
+                        <div class="span2">
+                            <input type="submit" name="search" value="Search Now" class="search"
+                                   style="float:right; width:100%"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

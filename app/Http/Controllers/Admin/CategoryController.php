@@ -21,6 +21,7 @@ class CategoryController extends Controller
         ]);
         $category = new Category;
         $category->name = $request->input('name');
+        $category->description = $request->input('description');
         $category->save();
 
         return redirect()->route('categories.index');

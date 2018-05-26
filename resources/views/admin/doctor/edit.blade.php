@@ -2,7 +2,7 @@
 @section('style-sheet')
 @section('style-sheet')
     <link rel="stylesheet" type="text/css" href="{{ URL::to('chosen_v1.4.0/chosen.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ URL::to('font-awesome-4.3.0/css/summernote.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::to('font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('summernote-master/dist/summernote.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/default.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/new-article.css') }}">

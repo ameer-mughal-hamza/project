@@ -23,6 +23,21 @@
             </a>
         </li>
 
+        <li class="link {{ Request::is('all-patient') ? 'active' : '' }}">
+            <a href="{{ route('admin.show.all.patients') }}">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-xs">Patients</span>
+                <span class="label label-success pull-right hidden-xs hidden-sm">20</span>
+            </a>
+        </li>
+
+        <li class="link {{ Request::is('medicine') ? 'active' : '' }}">
+            <a href="{{ route('medicine.show') }}">
+                <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-xs">Medicine</span>
+            </a>
+        </li>
+
         <li class="link">
             <a href="#collapse-comments" data-toggle="collapse" aria-controls="collapse-comments">
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -70,6 +85,7 @@
                 <span class="hidden-sm hidden-xs">Tags</span>
             </a>
         </li>
+
 
         <li class="link settings-btn">
             <a href="settings.html">

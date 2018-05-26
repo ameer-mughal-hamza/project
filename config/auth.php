@@ -48,6 +48,18 @@ return [
             'driver' => 'session',
             'provider' => 'doctors'
         ],
+        'patient' => [
+            'driver' => 'session',
+            'provider' => 'patients'
+        ],
+        'pharmacist' => [
+            'driver' => 'session',
+            'provider' => 'pharmacists'
+        ],
+        'labortarian' => [
+            'driver' => 'session',
+            'provider' => 'labortarians'
+        ],
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -84,6 +96,18 @@ return [
             'driver' => 'eloquent',
             'model' => App\Doctor::class,
         ],
+        'patients' => [
+            'driver' => 'eloquent',
+            'model' => App\Patient::class,
+        ],
+        'pharmacists' => [
+            'driver' => 'eloquent',
+            'model' => App\Pharmacist::class,
+        ],
+        'labortarians' => [
+            'driver' => 'eloquent',
+            'model' => App\Labortarian::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -118,6 +142,21 @@ return [
         ],
         'doctors' => [
             'provider' => 'doctors',
+            'table' => 'password_resets',
+            'expire' => 15,
+        ],
+        'patients' => [
+            'provider' => 'patients',
+            'table' => 'password_resets',
+            'expire' => 15,
+        ],
+        'pharmacists' => [
+            'provider' => 'pharmacists',
+            'table' => 'password_resets',
+            'expire' => 15,
+        ],
+        'labortarians' => [
+            'provider' => 'labortarians',
             'table' => 'password_resets',
             'expire' => 15,
         ],

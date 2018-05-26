@@ -15,23 +15,26 @@
             </a>
         </li>
 
-        <li class="link {{ Request::is('doctors') ? 'active' : '' }}">
-            <a href="{{ route('doctors.index') }}">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-xs">Doctors</span>
+        <li class="link {{ Request::is('doctor/profile/' .  Auth::user()->id ) ? 'active' : '' }}">
+            <a href="{{ route('doctor.profile', ['id' => Auth::user()->id]) }}">
+                <span><img src="{{ URL::asset('/doctor-images/' . Auth::user()->image_url) }}" width="25px"
+                           height="25px"
+                           alt="" ) style="border-radius: 50%; margin-left: -5px; margin-top: -5px;"></span>
+                <span class="hidden-sm hidden-xs">Profile</span>
                 <span class="label label-success pull-right hidden-xs hidden-sm">20</span>
             </a>
         </li>
 
         <li class="link {{ Request::is('doctors') ? 'active' : '' }}">
-            <a href="{{ route('doctors.index') }} #collapse-patients" data-toggle="collapse" aria-controls="collapse-patients">
+            <a href="{{ route('doctors.index') }} #collapse-patients" data-toggle="collapse"
+               aria-controls="collapse-patients">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-xs">Patients</span>
                 <span class="label label-success pull-right hidden-xs hidden-sm">20</span>
             </a>
             <ul class="collapse collapseable" id="collapse-patients">
                 <li>
-                    <a href="">View Patients
+                    <a href="{{ route('doctor.show.all.patients') }}">View Patients
                         <span class="label label-success pull-right hidden-xs hidden-sm">10</span>
                     </a>
                 </li>
@@ -65,7 +68,7 @@
         </li>
 
         <li class="link settings-btn">
-            <a href="settings.html">
+            <a href="{{ route('doctor.appointment.setting', ['id' => Auth::user()->id]) }}">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-xs">Settings</span>
             </a>

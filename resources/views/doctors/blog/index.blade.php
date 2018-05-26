@@ -22,7 +22,8 @@
                             <div class="admin-content-con">
                                 <header class="clearfix">
                                     <h5 class="pull-left">Articles</h5>
-                                    <a class="btn btn-xs btn-primary pull-right" href="{{ route('doctor.blog.create') }}"
+                                    <a class="btn btn-xs btn-primary pull-right"
+                                       href="{{ route('doctor.blog.create') }}"
                                        role="button">Create new
                                         article</a>
                                 </header>
@@ -43,7 +44,8 @@
                                             <td>{{ date('M j, Y', strtotime($post->created_at)) }}</td>
                                             <td>
                                                 <a class="btn btn-xs btn-warning"
-                                                   href="{{ route('doctor.blog.edit',['id' => $post->id]) }}" role="button">edit</a>
+                                                   href="{{ route('doctor.blog.edit',['id' => $post->id]) }}"
+                                                   role="button">edit</a>
                                                 <a class="btn btn-xs btn-primary"
                                                    href="{{ route('post',['id' => $post->id]) }}" role="button">view</a>
                                                 <a class="btn btn-xs btn-danger"
@@ -68,10 +70,7 @@
             </div>
         </div>
     </div>
-
-    {{--All scripts of this page will include in the master layout structure and then display--}}
-@section('scripts')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="{{URL::to('js/bootstrap.js/bootstrap.min.js') }}"></script>
 @endsection
+{{--All scripts of this page will include in the master layout structure and then display--}}
+@section('scripts')
 @endsection

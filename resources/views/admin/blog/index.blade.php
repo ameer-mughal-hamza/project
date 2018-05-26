@@ -8,25 +8,20 @@
     <div class="container-fluid display-table">
         <div class="row display-table-row">
             <!-- side menu -->
-        @if(Auth::guard('admin')->check())
-            @include('admin.admin-partials.admin-navbar')
-        @else
-            @include('doctors.doctor-partials.doctor-navbar')
-        @endif
+
+        @include('admin.admin-partials.admin-navbar')
         <!-- main content area -->
             <div class="col-md-10 col-sm-11 display-table-cell valign-top">
-                @if(Auth::guard('admin')->check())
-                    @include('admin.admin-partials.admin-header')
-                @else
-                    @include('doctors.doctor-partials.doctor-header')
-                @endif
+
+                @include('admin.admin-partials.admin-header')
                 <div id="dashboard-con">
                     <div class="row">
                         <div class="col-md-12 dashboard-left-cell">
                             <div class="admin-content-con">
                                 <header class="clearfix">
                                     <h5 class="pull-left">Articles</h5>
-                                    <a class="btn btn-xs btn-primary pull-right" href="{{ route('blog.create') }}" role="button">Create new
+                                    <a class="btn btn-xs btn-primary pull-right" href="{{ route('blog.create') }}"
+                                       role="button">Create new
                                         article</a>
                                 </header>
                                 <table class="table table-striped">
@@ -45,9 +40,15 @@
                                             <td>{!! substr($post->content,0 , 50) !!}{{ strlen($post->content) > 50 ? "...":"" }}</td>
                                             <td>{{ date('M j, Y', strtotime($post->created_at)) }}</td>
                                             <td>
-                                                <a class="btn btn-xs btn-warning" href="{{ route('blog.edit',['id' => $post->id]) }}" role="button">edit</a>
-                                                <a class="btn btn-xs btn-primary" href="{{ route('post',['id' => $post->id]) }}" role="button">view</a>
-                                                <a class="btn btn-xs btn-danger" href="{{ route('blog.post.delete',['id' => $post->id]) }}" role="button">del</a>
+                                                <a class="btn btn-xs btn-warning"
+                                                   href="{{ route('blog.edit',['id' => $post->id]) }}"
+                                                   role="button">edit</a>
+                                                <a class="btn btn-xs btn-primary"
+                                                   href="{{ route('post',['id' => $post->id]) }}"
+                                                   role="button">view</a>
+                                                <a class="btn btn-xs btn-danger"
+                                                   href="{{ route('blog.post.delete',['id' => $post->id]) }}"
+                                                   role="button">del</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -67,10 +68,9 @@
             </div>
         </div>
     </div>
-
-    {{--All scripts of this page will include in the master layout structure and then display--}}
+@endsection
+{{--All scripts of this page will include in the master layout structure and then display--}}
 @section('scripts')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="{{URL::to('js/bootstrap.js/bootstrap.min.js') }}"></script>
-@endsection
+    <script src="{{URL::to('boobootstrap')}}"></script>
 @endsection

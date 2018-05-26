@@ -59,7 +59,8 @@
                                     </tbody>
                                 </table>
                                 <div class="clearfix">
-                                    <a href="{{ route('blog.posts') }}" class="pull-right text-link">view all articles</a>
+                                    <a href="{{ route('blog.posts') }}" class="pull-right text-link">view all
+                                        articles</a>
                                 </div>
                             </div>
                         </div>
@@ -134,10 +135,9 @@
             </div>
         </div>
     </div>
-
-    {{--All scripts of this page will include in the master layout structure and then display--}}
+@endsection
+{{--All scripts of this page will include in the master layout structure and then display--}}
 @section('scripts')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="{{URL::to('js/bootstrap.js/bootstrap.min.js') }}"></script>
-@endsection
+    {{--<script src="{{URL::to('bootstrap}}"></script>--}}
 @endsection
