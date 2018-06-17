@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+//use Illuminate\Support\Facades\Mail;
+use Mail;
 
 class Doctor extends Authenticatable
 {
@@ -21,6 +23,15 @@ class Doctor extends Authenticatable
         'password',
         'deleted_flag'
     ];
+
+    public static function sendWelcomeEmail($user, $password)
+    {
+        // Send email
+        Mail::send('verification-mail', ['user' => $user, 'password' => $password], function ($m) use ($user) {
+            $m->from('hamza6417307@gmail.com', 'sickbay.com');
+            $m->to($user->email, $user->name)->subject('Welcome to Sickbay');
+        });
+    }
 
     public function categories()
     {

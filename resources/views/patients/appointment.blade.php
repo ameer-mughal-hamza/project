@@ -3,6 +3,7 @@
     <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/default.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/index.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/appointment-form.css') }}">
+    {{--<link rel="stylesheet" type="text/css" href="{{ URL::to('main-web-css/doctor-view.css') }}">--}}
 @endsection
 @section('content')
     <div class="container-fluid display-table">
@@ -13,10 +14,21 @@
             <div class="col-md-10 col-sm-11 display-table-cell valign-top">
                 @include('patients.patient-partials.patient-header')
                 <div id="dashboard-con">
-                    <div class="col-md-4">
-                        <div class="date-time-bg">
-                            <div class="img-css-profile">
-                                <img src="{{ URL::to('/images/asthama.png') }}" alt="" style="width: 90%;">
+                    <div class="col-md-4 dashboard-left-cell">
+                        <div class="admin-content-con">
+                            <header class="clearfix">
+                                <h5 class="pull-left">Doctor Detail</h5>
+                            </header>
+                            <div style="text-align: center;">
+                                <img src="{{ URL::to('main-web-img/blog-bg.jpg') }}"
+                                     style="height:180px; width: 180px; border-radius: 50%;"
+                                     class="search-doc-dp">
+                            </div>
+                            <div style="text-align:center; margin-top: 25px;">
+                                <h4>Ameer Hamza</h4>
+                                <h6>03216417307</h6>
+                                <h6></h6>
+                                <h6></h6>
                             </div>
                         </div>
                     </div>
@@ -56,7 +68,7 @@
                                 <h3 class="fs-subtitle">We will never sell it</h3>
                                 <input type="text" id="reason" name="reason" placeholder="Reason"/>
                                 <input type="hidden" id="patient_id" name="patient_id" value="{{ Auth::user()->id }}"/>
-                                <input type="hidden" id="doctor_id" name="doctor_id" value="{{ $doctor->id }}"/>
+                                <input type="hidden" id="doctor_id" name="doctor_id" value="{{ $doctor[0]->id }}"/>
                                 <input type="button" name="previous" class="previous action-button" value="Previous"/>
                                 <input type="submit" id="submit_form" class="submit action-button" value="Save"/>
                             </fieldset>

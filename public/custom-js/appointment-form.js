@@ -36,7 +36,7 @@ $(function () {
                     var doctor_available_timings = [];
 
                     for (i = 0; i < data['booked_appointments'].length; i++) {
-                        booked_appointments[i] = data['booked_appointments'][i]['booked_time'];
+                        booked_appointments[i] = data['booked_appointments'][i]['time'];
                     }
 
                     for (i = 0; i < data['doctor_available_timings'].length; i++) {
@@ -46,7 +46,7 @@ $(function () {
                     for (var i = 0; i < doctor_available_timings.length; i++) {
                         var match = false;
                         for (var j = 0; j < booked_appointments.length; j++) {
-                            if (doctor_available_timings[i] == booked_appointments[j]) {
+                            if (doctor_available_timings[i] === booked_appointments[j]) {
                                 match = true;
                                 break;
                             }
@@ -204,6 +204,7 @@ $('#submit_form').click(function (e) {
 
 //Move the form back when user clicks on the previous button
 $(".previous").click(function () {
+
     var current_fs, next_fs, previous_fs; //fieldsets
     var left, opacity, scale; //fieldset properties which we will animate
     var animating; //flag to prevent quick multi-click glitches

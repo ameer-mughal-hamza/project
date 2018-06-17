@@ -26,7 +26,8 @@
                                             <div class="col-md-12">
                                                 <div class="form-group {{ $errors->has('patient_email') ? 'has-error' : '' }}">
                                                     <label>Email</label>
-                                                    <input type="text" id="patient_email" class="form-control input-sm"
+                                                    <input type="text" name="patient_email" id="patient_email"
+                                                           class="form-control input-sm"
                                                            placeholder="Email"
                                                            value="">
                                                     @if($errors->has('patient_email'))
@@ -39,7 +40,8 @@
                                             <div class="col-md-12">
                                                 <div class="form-group {{ $errors->has('patient_name') ? 'has-error' : ''}}">
                                                     <label>Name</label>
-                                                    <input type="text" id="patient_name" class="form-control input-sm"
+                                                    <input type="text" name="patient_name" id="patient_name"
+                                                           class="form-control input-sm"
                                                            placeholder="Name"
                                                            value="">
                                                 </div>
@@ -49,7 +51,8 @@
                                             <div class="col-md-12">
                                                 <div class="form-group {{ $errors->has('patient_mobile') ? 'has-error' : '' }}">
                                                     <label>Mobile No.</label>
-                                                    <input type="text" id="patient_mobile" class="form-control input-sm"
+                                                    <input type="text" name="patient_mobile" id="patient_mobile"
+                                                           class="form-control input-sm"
                                                            placeholder="Mobile Number" value="">
                                                 </div>
                                             </div>
@@ -248,7 +251,7 @@
                     }
                 },
                 error: function (data) {
-                    console.log('Error:', data);
+                    console.log(data.responseJSON['email']);
                 }
             });
 

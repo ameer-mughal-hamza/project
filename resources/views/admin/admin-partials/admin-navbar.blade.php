@@ -31,39 +31,34 @@
             </a>
         </li>
 
-        <li class="link {{ Request::is('medicine') ? 'active' : '' }}">
-            <a href="{{ route('medicine.show') }}">
-                <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-xs">Medicine</span>
+        <li class="link {{ Request::is('doctors') ? 'active' : '' }}">
+            <a href="{{ route('doctors.index') }} #collapse-pharmacy" data-toggle="collapse"
+               aria-controls="collapse-pharmacy">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-xs">Pharmacy</span>
+                <span class="label label-success pull-right hidden-xs hidden-sm">20</span>
             </a>
-        </li>
-
-        <li class="link">
-            <a href="#collapse-comments" data-toggle="collapse" aria-controls="collapse-comments">
-                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-xs">Comments</span>
-            </a>
-            <ul class="collapse collapseable" id="collapse-comments">
+            <ul class="collapse collapseable" id="collapse-pharmacy">
                 <li>
-                    <a href="approved.html">Approved
+                    <a href="{{ route('pharmacist.index') }}">Pharmacist
                         <span class="label label-success pull-right hidden-xs hidden-sm">10</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="approved.html">Unapproved
+                    <a href="{{ route('medicine.show') }}">Medicine
                         <span class="label label-warning pull-right hidden-xs hidden-sm">10</span>
                     </a>
                 </li>
             </ul>
         </li>
 
-        <li class="link">
-            <a href="commenters.html">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-xs">Commenters</span>
-            </a>
-        </li>
+        {{--<li class="link {{ Request::is('medicine') ? 'active' : '' }}">--}}
+        {{--<a href="{{ route('medicine.show') }}">--}}
+        {{--<span class="glyphicon glyphicon-tags" aria-hidden="true"></span>--}}
+        {{--<span class="hidden-sm hidden-xs">Medicine</span>--}}
+        {{--</a>--}}
+        {{--</li>--}}
 
         <li class="link {{ Request::is('categories') ? 'active' : '' }}">
             <a href="{{ route('categories.index') }}">
@@ -88,7 +83,7 @@
 
 
         <li class="link settings-btn">
-            <a href="settings.html">
+            <a href="{{route('admin.settings')}}">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-xs">Settings</span>
             </a>

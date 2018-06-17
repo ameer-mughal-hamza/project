@@ -2,7 +2,7 @@
 @section('style-sheet')
     <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/default.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/index.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ URL::to('main-web-css/doctor-view.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/doctor-view.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 @endsection
 @section('content')
@@ -25,7 +25,8 @@
                                         <div class="col-md-4">
                                             <div style="border-radius: 50%;">
                                                 <img src="/doctor-images/{{ $doctor->image_url }}"
-                                                     style=" height:200px; width: 200px; border-radius: 50%;">
+                                                     style=" height:200px; width: 200px; border-radius: 50%; border: solid 1px black
+;">
                                             </div>
                                         </div>
                                         <div class="doctor-professional-profile col-md-8">
@@ -73,8 +74,8 @@
 
                                     <div class="col-md-8">
                                         <div style="margin-bottom: 15px;/*margin-top: -48px;*/">
-                                            <a href="{{ route('appointment', ['id' => $doctor->id])}}"
-                                               class="profile-buttons btn btn-danger">BOOK APPOINTMENT</a>
+                                            <a href="{{ route('appointment', ['doctor_id' => $doctor->id, 'patient_id' => Auth::user()->id])}}"
+                                               class="profile-buttons btn">BOOK APPOINTMENT</a>
                                         </div>
                                     </div>
 

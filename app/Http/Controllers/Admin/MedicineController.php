@@ -14,7 +14,6 @@ class MedicineController extends Controller
 {
     public function view_report($id)
     {
-
         $medicine = Medicine::find($id);
         $patient = Patient::find($medicine->patient_id);
         $doctor = Doctor::find($medicine->doctor_id);

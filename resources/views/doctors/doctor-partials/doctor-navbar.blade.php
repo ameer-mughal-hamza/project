@@ -7,6 +7,7 @@
                 <span class="hidden-sm hidden-xs">Dashboard</span>
             </a>
         </li>
+
         <li class="link {{ Request::is('doctor/blog') ? 'active' : ''}}">
             <a href="{{ route('doctor.blog') }}">
                 <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
@@ -44,34 +45,34 @@
                         <span class="label label-warning pull-right hidden-xs hidden-sm">10</span>
                     </a>
                 </li>
-            </ul>
-        </li>
-
-        <li class="link">
-            <a href="#collapse-comments" data-toggle="collapse" aria-controls="collapse-comments">
-                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-xs">Comments</span>
-            </a>
-            <ul class="collapse collapseable" id="collapse-comments">
-                <li>
-                    <a href="approved.html">Approved
-                        <span class="label label-success pull-right hidden-xs hidden-sm">10</span>
-                    </a>
-                </li>
 
                 <li>
-                    <a href="approved.html">Unapproved
+                    <a href="{{ route('all-appointment',['id' => Auth::user()->id]) }}">Appointment
                         <span class="label label-warning pull-right hidden-xs hidden-sm">10</span>
                     </a>
                 </li>
             </ul>
         </li>
 
-        <li class="link settings-btn">
-            <a href="{{ route('doctor.appointment.setting', ['id' => Auth::user()->id]) }}">
+        <li class="link">
+            <a href="#collapse-settings" data-toggle="collapse"
+               aria-controls="collapse-settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-xs">Settings</span>
             </a>
+            <ul class="collapse collapseable" id="collapse-settings">
+                <li>
+                    <a href="{{ route('doctor.appointment-setting', ['id' => Auth::user()->id]) }}">Appointment Settings
+                        <span class="label label-success pull-right hidden-xs hidden-sm">10</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('doctor.password') }}">Change Password
+                        <span class="label label-warning pull-right hidden-xs hidden-sm">10</span>
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>

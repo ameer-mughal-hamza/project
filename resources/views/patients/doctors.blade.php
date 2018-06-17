@@ -2,7 +2,7 @@
 @section('style-sheet')
     <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/default.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/index.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ URL::to('main-web-css/doctor-view.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/doctor-view.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 @endsection
 @section('content')
@@ -24,7 +24,8 @@
                                     <div class="row">
                                         @foreach($doctors as $doctor)
                                             <div class="col-md-3">
-                                                <div class="similar-doctor-data">
+                                                <div class="similar-doctor-data"
+                                                     style="border: solid; border-radius: 2%; border-width: 1px; padding: 15px; background-color:#EDF4E0;">
                                                     <div style="text-align: center;">
                                                         <img src="{{ URL::to('main-web-img/blog-bg.jpg') }}"
                                                              style="height:160px; width: 160px; border-radius: 50%;"

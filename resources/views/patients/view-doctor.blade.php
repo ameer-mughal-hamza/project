@@ -2,7 +2,7 @@
 @section('style-sheet')
     <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/default.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/index.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ URL::to('main-web-css/doctor-view.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::to('custom-css/doctor-view.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 @endsection
 @section('content')

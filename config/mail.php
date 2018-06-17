@@ -88,6 +88,16 @@ return [
 
     'password' => env('MAIL_PASSWORD'),
 
+
+    // I added this code.
+    'stream' => [
+        'ssl' => [
+            'allow_self_signed' => true,
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Sendmail System Path

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Doctor;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\PostCreated;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,6 +53,7 @@ class PostController extends Controller
 
     public function postCreate(Request $request)
     {
+
         $this->validate($request, [
             'title' => 'required|min:5',
             'content' => 'required'
@@ -71,6 +73,8 @@ class PostController extends Controller
             $post->image_url = $filename;
         }
         $doctor->posts()->save($post);
+        auth()->guard('doctor')->user()->notify(new PostCreated($doctor, $post));
+        dd($doctor);
         $post->tags()->attach($request->input('tags') === null ? [] : $request->input('tags'));
         return redirect()->route('doctor.blog');
     }

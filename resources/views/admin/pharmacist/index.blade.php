@@ -17,43 +17,37 @@
                         <div class="col-md-12 dashboard-left-cell">
                             <div class="admin-content-con">
                                 <header class="clearfix">
-                                    <h5 class="pull-left">Doctors</h5>
-                                    <a class="btn btn-xs btn-primary pull-right" href="{{ route('doctors.create') }}"
-                                       role="button">Create Doctor</a>
+                                    <h5 class="pull-left">Pharmacy</h5>
+                                    <a class="btn btn-xs btn-primary pull-right" href="{{ route('pharmacist.create') }}"
+                                       role="button">Create Account</a>
                                 </header>
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Name</th>
                                         <th>Email</th>
                                         <th>Created</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach( $doctors as $doctor)
-                                        <tr>
-                                            <td>{{ $doctor->first_name . ' ' . $doctor->last_name }}</td>
-                                            <td>{{ $doctor->email }}</td>
-                                            <td>{{ date('M j, Y', strtotime($doctor->created_at)) }}</td>
-                                            <td>
-                                                <a class="btn btn-xs btn-warning"
-                                                   href="{{ route('doctors.edit',$doctor->id) }}"
-                                                   role="button">edit</a>
-                                                <a class="btn btn-xs btn-primary"
-                                                   href="{{ route('doctors.show',$doctor->id) }}" role="button">view</a>
-                                                <a class="btn btn-xs btn-danger"
-                                                   href="{{ route('doctors.destroy', $doctor->id) }}"
-                                                   role="button">del</a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    {{--@foreach( $doctors as $doctor)--}}
+                                    {{--<tr>--}}
+                                    {{--<td>{{ $doctor->email }}</td>--}}
+                                    {{--<td>{{ date('M j, Y', strtotime($doctor->created_at)) }}</td>--}}
+                                    {{--<td>--}}
+                                    {{--<a class="btn btn-xs btn-warning"--}}
+                                    {{--href=""--}}
+                                    {{--role="button">edit</a>--}}
+                                    {{--<a class="btn btn-xs btn-primary"--}}
+                                    {{--href="" role="button">view</a>--}}
+                                    {{--<a class="btn btn-xs btn-danger"--}}
+                                    {{--href=""--}}
+                                    {{--role="button">del</a>--}}
+                                    {{--</td>--}}
+                                    {{--</tr>--}}
+                                    {{--@endforeach--}}
                                     </tbody>
                                 </table>
-                                <div class="clearfix">
-                                    <a href="{{ route('show.all.doctors') }}" class="pull-right text-link">view all
-                                        doctors</a>
-                                </div>
                             </div>
                         </div>
                     </div>

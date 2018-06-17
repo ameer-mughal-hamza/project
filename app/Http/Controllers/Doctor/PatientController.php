@@ -8,23 +8,31 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Patient;
 use App\Doctor;
+use Illuminate\Support\Facades\Hash;
 
 class PatientController extends Controller
 {
     public function add_patient(Request $request)
     {
         $this->validate($request, [
-            'patient_email' => 'required|email',
-            'patient_name' => 'required',
-            'patient_mobile' => 'required'
+            'email' => 'required|unique:patients,email',
+            'name' => 'required',
+            'mobile' => 'required'
         ]);
+
+        // Generate 6 characters long password
+        $password = str_random(6);
 
         $patient = new Patient();
         $patient->email = $request->email;
+        $patient->password = Hash::make($password);
         $patient->patient_name = $request->name;
         $patient->patient_mobile = $request->mobile;
         $patient->doctor_id = $request->doctor_id;
+
         $patient_save = $patient->save();
+
+        Doctor::sendWelcomeEmail($patient, $password);
 
         if (!$patient_save) {
             App::abort(500, 'Error');

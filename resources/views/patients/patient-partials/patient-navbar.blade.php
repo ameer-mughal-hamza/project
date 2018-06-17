@@ -10,14 +10,13 @@
 
         <li class="link">
             <a href="{{ route('show.patient.doctor') }}">
-                <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-xs">Doctors</span>
             </a>
         </li>
-
         <li class="link">
-            <a href="">
-                <span><img src="" width="25px"
+            <a href="{{route('patient.profile', ['id'=>Auth::user()->id])}}">
+                <span><img src="{{ URL::asset('/patient-images/' . Auth::user()->image_url) }}" width="25px"
                            height="25px"
                            alt="" ) style="border-radius: 50%; margin-left: -5px; margin-top: -5px;"></span>
                 <span class="hidden-sm hidden-xs">Profile</span>
@@ -27,8 +26,15 @@
 
         <li class="link">
             <a href="{{ route('show.patient.detail',['id' => Auth::user()->id]) }}">
-                <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-xs">Record</span>
+            </a>
+        </li>
+
+        <li class="link settings-btn">
+            <a href="{{route('patient.settings')}}">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-xs">Settings</span>
             </a>
         </li>
 

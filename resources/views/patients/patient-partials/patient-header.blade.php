@@ -17,9 +17,9 @@
         <div class="col-md-7">
             <ul class="pull-right">
                 <li class="fixed-width logo-name">
-                <img src=""
-                     alt=""
-                     style="width: 32px; height: 32px; border-radius: 50%">
+                    <img src="{{ URL::asset("/patient-images/" .  Auth::user()->image_url) }}"
+                         alt=""
+                         style="width: 32px; height: 32px; border-radius: 50%">
                 </li>
 
                 <li id="welcome" class="hidden-xs"><a href="">Welcome Ameer Hamza</a>

@@ -23,7 +23,3 @@
     </div>
 @endsection
 {{--All scripts of this page will include in the master layout structure and then display--}}
-@section('scripts')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
-@endsection
