@@ -1,5 +1,5 @@
 <div class="col-md-2 col-sm-1 hidden-xs display-table-cell valign-top" id="side-menu">
-    <h1 class="hidden-xs hidden-sm" style="color: #8eb4cb;">Doctor</h1>
+    <h1 class="hidden-xs hidden-sm" style="color: #8eb4cb;">Patient</h1>
     <ul>
         <li class="link">
             <a href="{{ route('patient.dashboard') }}">

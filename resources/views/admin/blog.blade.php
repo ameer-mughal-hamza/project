@@ -26,9 +26,6 @@
                             <div class="admin-content-con">
                                 <header class="clearfix">
                                     <h5 class="pull-left">Articles</h5>
-                                    <a class="btn btn-xs btn-primary pull-right" href="{{ route('blog.create') }}"
-                                       role="button">Create new
-                                        article</a>
                                 </header>
                                 <table class="table table-striped">
                                     <thead>
@@ -49,7 +46,8 @@
                                                 <a class="btn btn-xs btn-warning"
                                                    href="{{ route('blog.edit',['id' => $post->id]) }}" role="button">edit</a>
                                                 <a class="btn btn-xs btn-primary"
-                                                   href="{{ route('post',['id' => $post->id]) }}" role="button">view</a>
+                                                   href="{{ route('admin.blog.view',['id' => $post->id]) }}"
+                                                   role="button">view</a>
                                                 <a class="btn btn-xs btn-danger"
                                                    href="{{ route('blog.post.delete',['id' => $post->id]) }}"
                                                    role="button">del</a>

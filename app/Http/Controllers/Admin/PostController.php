@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Doctor;
 
 use Image;
 
@@ -17,6 +18,15 @@ class PostController extends Controller
         $posts = Post::orderBy('title', 'asc')->take(5)->get();
         return view('admin.blog', ['posts' => $posts]);
     }
+
+    public function viewPostToAdmin($id)
+    {
+        $post = Post::find($id)->first();
+        $doctor = Doctor::find($post->doctor_id)->first();
+
+        return view('admin.blog.view-single-post', ['post' => $post, 'doctor' => $doctor]);
+    }
+
 
     public function getPosts()
     {
@@ -40,7 +50,7 @@ class PostController extends Controller
     public function postUpdate(Request $request, $id)
     {
         $this->validate($request, [
-            'title' => 'required|min:5',
+            'title' => 'required | min:5',
 
             'content' => 'required'
         ]);
@@ -55,7 +65,7 @@ class PostController extends Controller
     public function postCreate(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|min:5',
+            'title' => 'required | min:5',
             'content' => 'required'
         ]);
 
@@ -85,6 +95,6 @@ class PostController extends Controller
         }
         $post->tags()->detach();
         $post->delete();
-        return redirect()->route('blog.posts')->with('info', 'Post deleted!');
+        return redirect()->route('admin.blog')->with('info', 'Post deleted!');
     }
 }

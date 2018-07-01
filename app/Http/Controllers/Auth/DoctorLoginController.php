@@ -10,7 +10,7 @@ class DoctorLoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest:doctor');
+        $this->middleware('guest:doctor', ['except' => ['logout']]);
     }
 
     public function showDoctorLoginForm()
@@ -26,7 +26,7 @@ class DoctorLoginController extends Controller
         ]);
         if (Auth::guard('doctor')->attempt([
             'email' => $request->email,
-            'password' => $request->password])) {
+            'password' => $request->password], $request->remember)) {
             return redirect()->intended(route('doctor.dashboard'));
         }
         return redirect()->back()->with('fail', 'Authentication failed!');

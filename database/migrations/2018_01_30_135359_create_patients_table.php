@@ -18,6 +18,7 @@ class CreatePatientsTable extends Migration
             $table->increments('id');
             $table->string('email');
             $table->string('password');
+            $table->string('remember_token')->nullable();
             $table->string('patient_name');
             $table->string('patient_mobile');
             $table->string('image_url')->default('default.jpg');

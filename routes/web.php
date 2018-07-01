@@ -38,10 +38,21 @@ Route::get('/service/{category}', [
 Route::get('send', 'Doctor\MailController@send');
 
 // Admin Routes
+
 Route::group(['middleware' => 'auth:admin'], function () {
+
+    Route::post('/notifications/get', 'Admin\NotificationController@get');
+
+    Route::post('/notification/read', 'Admin\NotificationController@read');
+
     Route::get('blog', [
         'uses' => 'Admin\PostController@getPostForAdminBlog',
         'as' => 'admin.blog'
+    ]);
+
+    Route::get('blog/post/{id}', [
+        'uses' => 'Admin\PostController@viewPostToAdmin',
+        'as' => 'admin.blog.view'
     ]);
 
     Route::get('admin-settings', [
@@ -391,6 +402,11 @@ Route::group(['middleware' => 'auth:doctor'], function () {
     ]);
 });
 
+Route::get('markasread', function () {
+    $admin = \App\Admin::find(1);
+    $admin->unreadNotifications->markAsRead();
+});
+
 //Pharmicist Routes
 Route::group(['middleware' => 'auth:pharmacist'], function () {
 
@@ -453,18 +469,35 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', 'AdminAuth\AdminLoginController@showAdminLoginForm')->name('admin.login');
     Route::post('/login', 'AdminAuth\AdminLoginController@adminLogin')->name('admin.login.submit');
     Route::get('/', 'Admin\AdminController@index')->name('admin.dashboard');
+    Route::post('/logout', 'AdminAuth\AdminLoginController@logout')->name('admin.logout');
+
+    Route::post('/password/email', 'AdminAuth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+    Route::get('/password/reset', 'AdminAuth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+    Route::post('/password/reset', 'AdminAuth\AdminResetPasswordController@reset');
+    Route::get('/password/reset/{token}', 'AdminAuth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 });
 
 Route::group(['prefix' => 'doctor'], function () {
     Route::get('/login', 'DoctorAuth\DoctorLoginController@showDoctorLoginForm')->name('doctor.login');
     Route::post('/login', 'DoctorAuth\DoctorLoginController@doctorLogin')->name('doctor.login.submit');
     Route::get('/', 'Doctor\DoctorController@doctorDashboard')->name('doctor.dashboard');
+    Route::post('/logout', 'DoctorAuth\DoctorLoginController@logout')->name('doctor.logout');
+
+    Route::post('/password/email', 'DoctorAuth\DoctorForgotPasswordController@sendResetLinkEmail')->name('doctor.password.email');
+    Route::get('/password/reset', 'DoctorAuth\DoctorForgotPasswordController@showLinkRequestForm')->name('doctor.password.request');
+    Route::post('/password/reset', 'DoctorAuth\DoctorResetPasswordController@reset');
+    Route::get('/password/reset/{token}', 'DoctorAuth\DoctorResetPasswordController@showResetForm')->name('doctor.password.reset');
 });
 
 Route::group(['prefix' => 'patient'], function () {
     Route::get('/login', 'PatientAuth\PatientLoginController@showPatientLoginForm')->name('patient.login');
     Route::post('/login', 'PatientAuth\PatientLoginController@patientLogin')->name('patient.login.submit');
     Route::get('/', 'Patient\PatientController@patientdashboard')->name('patient.dashboard');
+
+    Route::post('/password/email', 'PatientAuth\PatientForgotPasswordController@sendResetLinkEmail')->name('patient.password.email');
+    Route::get('/password/reset', 'PatientAuth\PatientForgotPasswordController@showLinkRequestForm')->name('patient.password.request');
+    Route::post('/password/reset', 'PatientAuth\PatientResetPasswordController@reset');
+    Route::get('/password/reset/{token}', 'PatientAuth\PatientResetPasswordController@showResetForm')->name('patient.password.reset');
 });
 
 Route::group(['prefix' => 'pharmacist'], function () {

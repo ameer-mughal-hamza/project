@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Notifications\DoctorResetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 //use Illuminate\Support\Facades\Mail;
@@ -46,6 +47,11 @@ class Doctor extends Authenticatable
     public function posts()
     {
         return $this->hasMany('App\Post');
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new DoctorResetPasswordNotification($token));
     }
 
 }

@@ -16,7 +16,8 @@ class CreateLabortariansTable extends Migration
         Schema::create('labortarians', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email');
-            $table->string('password')->default('user1234');
+            $table->string('password');
+            $table->string('remember_token')->nullable();
             $table->timestamps();
         });
     }

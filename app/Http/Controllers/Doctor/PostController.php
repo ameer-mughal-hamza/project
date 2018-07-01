@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Doctor;
 
+use App\Admin;
 use App\Http\Controllers\Controller;
 use App\Notifications\PostCreated;
 use App\Tag;
@@ -60,6 +61,7 @@ class PostController extends Controller
         ]);
 
         $doctor = Auth::user();
+        $admin = Admin::find(1);
         $post = new Post;
 
         $post->title = $request->input('title');
@@ -73,10 +75,16 @@ class PostController extends Controller
             $post->image_url = $filename;
         }
         $doctor->posts()->save($post);
-        auth()->guard('doctor')->user()->notify(new PostCreated($doctor, $post));
-        dd($doctor);
+//        dd($doctor);
         $post->tags()->attach($request->input('tags') === null ? [] : $request->input('tags'));
+
+        $admin->notify(new PostCreated($doctor, $post));
         return redirect()->route('doctor.blog');
+    }
+
+    public function notification()
+    {
+        return auth()->user()->unreadNotifications;
     }
 
     public function delete($id)

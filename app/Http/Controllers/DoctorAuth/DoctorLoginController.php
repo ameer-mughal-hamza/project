@@ -11,7 +11,7 @@ class DoctorLoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest:doctor');
+        $this->middleware('guest:doctor', ['except' => ['logout']]);
     }
 
     public function showDoctorLoginForm()
@@ -27,11 +27,16 @@ class DoctorLoginController extends Controller
         ]);
         if (Auth::guard('doctor')->attempt([
             'email' => $request->email,
-            'password' => $request->password,
-            /*'deleted_flag' => '1'*/])) {
+            'password' => $request->password], $request->remeber)) {
             Alert::success('You are logged in successfully!', 'Congratulations')->persistent('Close');
             return redirect()->intended(route('doctor.dashboard'));
         }
         return redirect()->back()->with('fail', 'Authentication failed!');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('doctor')->logout();
+        return redirect('/doctor/login');
     }
 }

@@ -26,6 +26,7 @@ class CreateDoctorsTable extends Migration
             $table->string('image_url')->default('default.jpg');
             $table->boolean('pmdc_verified')->default(0);
             $table->string('password');
+            $table->string('remember_token')->nullable();
             $table->string('available_timings')->default(0);
             $table->boolean('deleted_flag')->default(0);
             $table->timestamps();
