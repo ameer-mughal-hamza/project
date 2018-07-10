@@ -18,18 +18,5 @@ Vue.component('example', require('./components/Example.vue'));
 Vue.component('adminnotification', require('./components/AdminNotification.vue'));
 
 const app = new Vue({
-    el: '#sickbay',
-    data: {
-        notifications: ''
-    },
-    created() {
-        axios.post('/notifications/get').then(response => {
-            this.notifications = response.data
-        });
-        Echo.channel('AdminNotifications')
-            .listen('PostCreatedEvent', (e) => {
-                this.notifications.push(e);
-                console.log(e);
-            });
-    }
+    el: '#sickbay'
 });
