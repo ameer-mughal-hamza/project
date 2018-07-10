@@ -112,84 +112,33 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <div class="single-post"> <!-- single post -->
-                    <div class="post-featured-content">
-                        <img src="assets/img/blog/blog1.jpg" class="img-responsive" alt="">
-                    </div>
-                    <h2>How to creat your own website</h2>
-                    <div class="entry-meta">
-                        <span class="posted-on"><b>Posted on:</b> <a href="#">22 August 2016</a></span>
-                    </div>
-                    <div class="entry-content">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                            galley of type and scrambled it to make a type specimen book. It has survived not only five
-                            centuries</p>
-                        <a href="single-blog.html" class="read-more-btn">read more</a>
-                    </div>
-                    <footer class="entry-footer">
-                        <span class="cat-links"><b>Posted in:</b> <a href="#">Design</a>, <a
-                                    href="#">Development</a></span>
-                        <span class="comments-link"><a href="#">2 comments</a></span>
-                    </footer>
-                </div>
+                @foreach($posts as $post)
+                    <div class="single-post"> <!-- single post -->
 
-                <div class="single-post"> <!-- single post -->
-                    <div class="post-featured-content">
-                        <img src="assets/img/blog/blog2.jpg" class="img-responsive" alt="">
+                        <div class="post-featured-content">
+                            <img src="{{ URL::to('upload-images/'.$post->image_url) }}" class="img-responsive" alt="">
+                        </div>
+                        <h2>{{$post->title}}</h2>
+                        <div class="entry-meta">
+                            <span class="posted-on"><b>Posted on:</b> <a
+                                        href="#">{{ date('M j, Y', strtotime($post->created_at)) }}</a></span>
+                        </div>
+                        <div class="entry-content">
+                            <p>{!! substr($post->content,0 , 300) !!}{{ strlen($post->content) > 300 ? "...":"" }}</p>
+                            <a href="{{route('post',['id'=>$post->id])}}" class="read-more-btn">read more</a>
+                        </div>
+                        <footer class="entry-footer">
+                        <span class="cat-links"><b>Tags:</b>
+                            @foreach($post->tags as $tag)
+                                <a href="#">{{ $tag->name }}</a>
+                            @endforeach
+                        </span>
+                        </footer>
                     </div>
-                    <h2>How to creat your own website</h2>
-                    <div class="entry-meta">
-                        <span class="posted-on"><b>Posted on:</b> <a href="#">22 August 2016</a></span>
-                    </div>
-                    <div class="entry-content">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                            galley of type and scrambled it to make a type specimen book. It has survived not only five
-                            centuries</p>
-                        <a href="single-blog.html" class="read-more-btn">read more</a>
-                    </div>
-                    <footer class="entry-footer">
-                        <span class="cat-links"><b>Posted in:</b> <a href="#">Design</a>, <a
-                                    href="#">Development</a></span>
-                        <span class="comments-link"><a href="#">5 comments</a></span>
-                    </footer>
-                </div>
+                @endforeach
 
-                <div class="single-post"> <!-- single post -->
-                    <div class="post-featured-content">
-                        <img src="assets/img/blog/blog3.jpg" class="img-responsive" alt="">
-                    </div>
-                    <h2>How to creat your own website</h2>
-                    <div class="entry-meta">
-                        <span class="posted-on"><b>Posted on:</b> <a href="#">22 August 2016</a></span>
-                    </div>
-                    <div class="entry-content">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                            galley of type and scrambled it to make a type specimen book. It has survived not only five
-                            centuries</p>
-                        <a href="single-blog.html" class="read-more-btn">read more</a>
-                    </div>
-                    <footer class="entry-footer">
-                        <span class="cat-links"><b>Posted in:</b> <a href="#">Design</a>, <a
-                                    href="#">Development</a></span>
-                        <span class="comments-link"><a href="#">2 comments</a></span>
-                    </footer>
-                </div>
+                {{ $posts->links() }}
 
-
-                <div class="pagination"> <!-- single post -->
-                    <ul>
-                        <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#" aria-label="Next">
-                                <i class="fa fa-angle-right"></i>
-                            </a></li>
-                    </ul>
-                </div>
             </div>
             <div class="col-md-4">
                 <div class="widget search"> <!-- widget single -->
@@ -202,42 +151,30 @@
                 <div class="widget recent-post"> <!-- widget single -->
                     <h3 class="widget-title">Recent Posts</h3>
                     <ul>
-                        <li><a href="#">Perspiciatis voluptatum fugit voluptate expedita
-                                repellat<span>21st Nov, 2016</span></a></li>
-                        <li><a href="#">Perspiciatis voluptatum fugit voluptate expedita
-                                repellat<span>21st Nov, 2016</span></a></li>
-                        <li><a href="#">Perspiciatis voluptatum fugit voluptate expedita
-                                repellat<span>21st Nov, 2016</span></a></li>
-                        <li><a href="#">Perspiciatis voluptatum fugit voluptate expedita
-                                repellat<span>21st Nov, 2016</span></a></li>
+                        @foreach($recent_posts as $recent_post)
+                            <li><a href="{{route('post',['id'=>$recent_post->id])}}">{{ $recent_post->title }}
+                                    <span>{{ date('M j, Y', strtotime($post->created_at)) }}</span></a></li>
+                        @endforeach
                     </ul>
                 </div>
 
-                <div class="widget category"> <!-- widget single -->
-                    <h3 class="widget-title">Categories</h3>
-                    <ul>
-                        <li><a href="#">Web Design <span>(5)</span></a></li>
-                        <li><a href="#">Development <span>(17)</span></a></li>
-                        <li><a href="#">Graphics Design <span>(25)</span></a></li>
-                        <li><a href="#">WordPress <span>(24)</span></a></li>
-                        <li><a href="#">Technology <span>(8)</span></a></li>
-                    </ul>
-                </div>
+                {{--<div class="widget category"> <!-- widget single -->--}}
+                {{--<h3 class="widget-title">Categories</h3>--}}
+                {{--<ul>--}}
+                {{--<li><a href="#">Web Design <span>(5)</span></a></li>--}}
+                {{--<li><a href="#">Development <span>(17)</span></a></li>--}}
+                {{--<li><a href="#">Graphics Design <span>(25)</span></a></li>--}}
+                {{--<li><a href="#">WordPress <span>(24)</span></a></li>--}}
+                {{--<li><a href="#">Technology <span>(8)</span></a></li>--}}
+                {{--</ul>--}}
+                {{--</div>--}}
 
                 <div class="widget tags"> <!-- widget single -->
                     <h3 class="widget-title">tags</h3>
                     <ul>
-                        <li><a href="#">Design</a></li>
-                        <li><a href="#">Tecnology</a></li>
-                        <li><a href="#">Tends</a></li>
-                        <li><a href="#">html</a></li>
-                        <li><a href="#">wordpress</a></li>
-                        <li><a href="#">java</a></li>
-                        <li><a href="#">c++</a></li>
-                        <li><a href="#">jquery</a></li>
-                        <li><a href="#">business</a></li>
-                        <li><a href="#">jumla</a></li>
-                        <li><a href="#">envato</a></li>
+                        @foreach($tags as $tag)
+                            <li><a href="#">{{$tag->name}}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
